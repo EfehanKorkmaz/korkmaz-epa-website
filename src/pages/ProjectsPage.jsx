@@ -107,9 +107,8 @@ const ProjectsPage = () => {
 
                         {/* Progress Bar */}
                         <div className="max-w-md mx-auto mb-6">
-                            <div className="flex justify-between text-sm text-gray-500 mb-2">
-                                <span>İçerik Hazırlığı</span>
-                                <span>Yakında...</span>
+                            <div className="text-center text-sm text-gray-500 mb-2">
+                                <span>İçerik Hazırlığı • Yakında...</span>
                             </div>
                             <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
                                 <motion.div
