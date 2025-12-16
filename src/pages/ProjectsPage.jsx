@@ -106,9 +106,9 @@ const ProjectsPage = () => {
                         </p>
 
                         {/* Progress Bar */}
-                        <div className="max-w-md mx-auto mb-6">
-                            <div className="text-center text-sm text-gray-500 mb-2">
-                                <span>İçerik Hazırlığı • Yakında...</span>
+                        <div style={{ maxWidth: '400px', margin: '0 auto 24px auto', width: '100%' }}>
+                            <div style={{ textAlign: 'center', fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>
+                                İçerik Hazırlığı • Yakında...
                             </div>
                             <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
                                 <motion.div
