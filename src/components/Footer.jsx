@@ -181,9 +181,6 @@ const Footer = () => {
                             <h4 className="text-xl font-bold font-[family-name:var(--font-family-heading)] text-white mb-2">
                                 {contactInfo.company}
                             </h4>
-                            <p className="text-teal-400 text-sm">
-                                {contactInfo.companyFull}
-                            </p>
                         </div>
                         <p className="text-gray-400 mb-6 leading-relaxed">
                             Kaliteli işçilik ve güvenilir hizmet anlayışıyla modern yaşam alanları inşa ediyoruz.

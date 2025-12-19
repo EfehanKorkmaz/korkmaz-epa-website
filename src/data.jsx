@@ -20,8 +20,8 @@ export const features = [
 export const stats = [
     { number: 150, suffix: '+', label: 'Tamamlanan Proje', icon: '🏢' },
     { number: 500, suffix: '+', label: 'Mutlu Müşteri', icon: '😊' },
-    { number: 45, suffix: '+', label: 'Uzman Çalışan', icon: '👷' },
-    { number: 12, suffix: '+', label: 'Aktif Proje', icon: '🚧' },
+    { number: 20, suffix: '+', label: 'Uzman Çalışan', icon: '👷' },
+    { number: 2, suffix: '+', label: 'Aktif Proje', icon: '🚧' },
 ];
 
 // Hizmetler - Services bölümünde kullanılıyor
