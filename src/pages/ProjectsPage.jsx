@@ -49,7 +49,16 @@ const ProjectsPage = () => {
     const [slideDirection, setSlideDirection] = useState(1); // 1: sağdan sola, -1: soldan sağa
     const [preloadedImages, setPreloadedImages] = useState(new Set());
     const [isGridVisible, setIsGridVisible] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const gridRef = useRef(null);
+
+    // Mobil cihaz kontrolü
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // Benzersiz kategorileri al
     const categories = useMemo(() => {
@@ -158,12 +167,12 @@ const ProjectsPage = () => {
                                 key={category}
                                 onClick={() => handleFilterChange(category)}
                                 style={{
-                                    padding: '12px 24px',
+                                    padding: isMobile ? '10px 16px' : '12px 24px',
                                     borderRadius: '12px',
-                                    fontSize: '14px',
+                                    fontSize: isMobile ? '12px' : '14px',
                                     fontWeight: '600',
                                     transition: 'all 150ms',
-                                    minWidth: '120px',
+                                    minWidth: isMobile ? '90px' : '120px',
                                     cursor: 'pointer',
                                     border: filter === category ? 'none' : '1px solid #374151',
                                     background: filter === category
@@ -192,9 +201,9 @@ const ProjectsPage = () => {
                 </div>
             </section>
 
-            {/* Fixed Navigation Arrows - Sadece grid görünürken, animasyonlu */}
+            {/* Fixed Navigation Arrows - Sadece desktop ve grid görünürken */}
             <AnimatePresence>
-                {isGridVisible && currentPage > 0 && (
+                {!isMobile && isGridVisible && currentPage > 0 && (
                     <motion.button
                         key="left-arrow"
                         initial={{ opacity: 0, x: -20 }}
@@ -232,7 +241,7 @@ const ProjectsPage = () => {
                     </motion.button>
                 )}
 
-                {isGridVisible && currentPage < totalPages - 1 && (
+                {!isMobile && isGridVisible && currentPage < totalPages - 1 && (
                     <motion.button
                         key="right-arrow"
                         initial={{ opacity: 0, x: 20 }}
@@ -286,8 +295,8 @@ const ProjectsPage = () => {
                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                                 style={{
                                     display: 'grid',
-                                    gridTemplateColumns: 'repeat(2, 1fr)',
-                                    gap: '32px',
+                                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                                    gap: isMobile ? '20px' : '32px',
                                     willChange: 'transform, opacity'
                                 }}
                             >
