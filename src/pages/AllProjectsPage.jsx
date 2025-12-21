@@ -21,6 +21,13 @@ const categoryOverrides = {
     'Gökçe parla 2023': 'Konut',
     'Gökçe yapı beosis iş merkezi 2021': 'Ticari',
     'Beykoz taksi durağı temeli': 'Diğer',
+    'Kayrak taşı çalışması 2020': 'Diğer',
+    'Koray ustalık dönemi çalışması': 'Betonarme',
+    'Mehmet Bey Villa Çevre Düzenleme Bayramoğlu 2022': 'Diğer',
+    'OSMAN SAYILI İŞ MERKEZİ BİNASI OSMANGAZİ 2016': 'Ticari',
+    'villa Bayramoglu ilave ek 2022': 'Çatı Sistemleri',
+    'Villa Tadilat': 'Diğer',
+    'Yusuf Destek 2022': 'Konut',
 };
 
 // Kategori eşleştirme fonksiyonu
