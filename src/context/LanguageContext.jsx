@@ -72,7 +72,6 @@ export const LanguageProvider = ({ children }) => {
 
         // Özel durumlar ve Typo düzeltmeleri
         result = result.replace(/bayramoğluu/gi, 'bayramoğlu');
-        // "Lima" kelimesi varsa "Limanı" yap, ama zaten "Limanı" ise dokunma (regex boundary \b ve lookahead important)
         result = result.replace(/\blima\b(?!n)/gi, 'limanı');
 
         // 2. Hanım/Bey kalıplarını işle: "[İsim] Hanım" → "Ms. [İsim]'s"
@@ -95,6 +94,19 @@ export const LanguageProvider = ({ children }) => {
             [/kalıpçı\s+ustası\s+takımı/gi, 'Formwork Master Team'],
             [/osman\s+sayılı\s+iş\s+merkezi\s+binası/gi, 'Osman Sayılı Business Center Building'],
             [/nenehatun\s+residence\s+inşaat(ı)?/gi, 'Nenehatun Residence Construction'],
+
+            // Tuzla Municipality Case (Mixed language input handling)
+            // "Tuzla Municipality Çeşitli Alanlarda" -> "Tuzla Municipality Various Areas"
+            [/belediye(si)?\s+çeşitli\s+alanlarda/gi, 'Municipality Various Areas'],
+            [/municipality\s+çeşitli\s+alanlarda/gi, 'Municipality Various Areas'], // Already partially translated case
+
+            // Villa Bayramoglu Case
+            // "Villa Bayramoglu İlave Ek" -> "Villa Bayramoglu Additional Extension"
+            [/ilave\s+ek/gi, 'Additional Extension'],
+
+            // Saat Kulesi Yanı
+            [/saat\s+kules[iı]\s+yan[iı]\s+(residence|konut)/gi, 'Residence Near Clock Tower'],
+            [/saat\s+kules[iı]\s+yan[iı]/gi, 'Next to Clock Tower'],
 
             // Orta uzunluktaki ifadeler
             [/iş\s+merkezi\s+bina(sı)?/gi, 'Business Center Building'],
@@ -192,7 +204,6 @@ export const LanguageProvider = ({ children }) => {
         // 6. Son temizlikler
         result = result.replace(/Retaining Wall Work/gi, 'Retaining Wall');
 
-        // Marina tekrarı temizliği (Marina Bayramoğlu Marina -> Bayramoğlu Marina)
         if (result.match(/Marina.*Marina/i)) {
             result = result.replace(/^Marina\s+/i, '');
         }
