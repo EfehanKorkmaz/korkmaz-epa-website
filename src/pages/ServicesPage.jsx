@@ -1,12 +1,25 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { services } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 const ServicesPage = () => {
+    const { t } = useLanguage();
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.1,
     });
+
+    // Hizmet verileri sırasına göre anahtar haritası
+    // DİKKAT: data.jsx'teki services dizisinin sırası değişirse burası da güncellenmeli!
+    const serviceKeys = [
+        'residential',      // Konut Projeleri
+        'commercial',       // Ticari Yapılar
+        'urbanRenewal',     // Kentsel Dönüşüm
+        'contracting',      // Taahhüt İşleri
+        'renovation',       // Tadilat ve Restorasyon
+        'roofing'           // Çatı Sistemleri
+    ];
 
     return (
         <div className="min-h-screen bg-gray-900 transition-colors duration-300">
@@ -35,7 +48,7 @@ const ServicesPage = () => {
                         }}
                         className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-wide text-white font-[family-name:var(--font-family-heading)] mb-6"
                     >
-                        Faaliyet ve Uzmanlık Alanlarımız
+                        {t('services.pageTitle')}
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -48,7 +61,7 @@ const ServicesPage = () => {
                         }}
                         className="text-gray-400 text-lg leading-relaxed"
                     >
-                        Kapsamlı hizmet yelpazemizle inşaat sektöründeki tüm ihtiyaçlarınıza profesyonel çözümler sunuyoruz.
+                        {t('services.pageDescription')}
                     </motion.p>
                 </div>
             </section>
@@ -73,55 +86,64 @@ const ServicesPage = () => {
                     paddingRight: '16px'
                 }}>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl w-full">
-                        {services.map((service, index) => (
-                            <motion.div
-                                key={service.title}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={inView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                                className="group relative bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:border-teal-600 flex flex-col card-hover"
-                            >
-                                {/* Image */}
-                                <div className="relative h-48 overflow-hidden">
-                                    <img
-                                        src={service.image}
-                                        alt={service.title}
-                                        loading="lazy"
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-800 to-transparent opacity-60" />
-                                    {/* Icon overlay */}
-                                    <div className="absolute bottom-4 left-4 w-12 h-12 bg-teal-600/90 rounded-xl flex items-center justify-center text-white shadow-lg">
-                                        {service.icon}
+                        {services.map((service, index) => {
+                            const serviceKey = serviceKeys[index];
+
+                            // Özellikleri (features) çevirmek için features (serviceFeatures) dizisini al
+                            const features = t(`services.${serviceKey}Features`);
+                            // Eğer çeviri dizi dönmezse (hata durumu veya tek string), boş dizi veya kendisini kullan
+                            const featuresList = Array.isArray(features) ? features : service.features;
+
+                            return (
+                                <motion.div
+                                    key={serviceKey} // title yerine key kullanmak daha güvenli
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    className="group relative bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:border-teal-600 flex flex-col card-hover"
+                                >
+                                    {/* Image */}
+                                    <div className="relative h-48 overflow-hidden">
+                                        <img
+                                            src={service.image}
+                                            alt={t(`services.${serviceKey}`)}
+                                            loading="lazy"
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-gray-800 to-transparent opacity-60" />
+                                        {/* Icon overlay */}
+                                        <div className="absolute bottom-4 left-4 w-12 h-12 bg-teal-600/90 rounded-xl flex items-center justify-center text-white shadow-lg">
+                                            {service.icon}
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Content */}
-                                <div className="p-6 flex flex-col flex-grow">
-                                    {/* Title */}
-                                    <h3 className="text-xl font-bold text-white font-[family-name:var(--font-family-heading)] mb-3 group-hover:text-teal-400 transition-colors">
-                                        {service.title}
-                                    </h3>
+                                    {/* Content */}
+                                    <div className="p-6 flex flex-col flex-grow">
+                                        {/* Title */}
+                                        <h3 className="text-xl font-bold text-white font-[family-name:var(--font-family-heading)] mb-3 group-hover:text-teal-400 transition-colors">
+                                            {t(`services.${serviceKey}`)}
+                                        </h3>
 
-                                    {/* Description */}
-                                    <p className="text-gray-400 mb-6 leading-relaxed flex-grow">
-                                        {service.description}
-                                    </p>
+                                        {/* Description */}
+                                        <p className="text-gray-400 mb-6 leading-relaxed flex-grow">
+                                            {t(`services.${serviceKey}Desc`)}
+                                        </p>
 
-                                    {/* Features */}
-                                    <ul className="space-y-2 mt-auto">
-                                        {service.features.map((feature) => (
-                                            <li key={feature} className="flex items-center text-sm text-gray-400">
-                                                <svg className="w-4 h-4 text-teal-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                                </svg>
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </motion.div>
-                        ))}
+                                        {/* Features */}
+                                        <ul className="space-y-2 mt-auto">
+                                            {featuresList.map((feature, i) => (
+                                                <li key={i} className="flex items-center text-sm text-gray-400">
+                                                    <svg className="w-4 h-4 text-teal-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                    </svg>
+                                                    {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>

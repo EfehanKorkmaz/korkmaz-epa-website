@@ -49,6 +49,8 @@
     "services": {
         "title": "Hizmetlerimiz",
         "subtitle": "Size özel çözümler sunuyoruz",
+        "pageTitle": "Faaliyet ve Uzmanlık Alanlarımız",
+        "pageDescription": "Kapsamlı hizmet yelpazemizle inşaat sektöründeki tüm ihtiyaçlarınıza profesyonel çözümler sunuyoruz.",
         "residential": "Konut Projeleri",
         "commercial": "Ticari Yapılar",
         "urbanRenewal": "Kentsel Dönüşüm",
