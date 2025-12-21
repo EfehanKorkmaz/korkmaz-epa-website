@@ -35,7 +35,13 @@
         "total": "Total",
         "project": "projects",
         "swipe": "Swipe",
-        "photoNotFound": "Photo not found"
+        "photoNotFound": "Photo not found",
+        "ongoingProject": "Our Ongoing Project",
+        "mainProjects": "Our Main Projects",
+        "otherProjects": "Our Other Projects",
+        "ongoing": "Ongoing",
+        "allProjectsTitle": "All Our Projects",
+        "backToMain": "Back to Main Page"
     },
     "categories": {
         "Betonarme": "Reinforced Concrete",

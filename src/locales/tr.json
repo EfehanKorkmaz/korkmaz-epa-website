@@ -35,7 +35,13 @@
         "total": "Toplam",
         "project": "proje",
         "swipe": "Kaydır",
-        "photoNotFound": "Fotoğraf bulunamadı"
+        "photoNotFound": "Fotoğraf bulunamadı",
+        "ongoingProject": "Devam Eden Projemiz",
+        "mainProjects": "Başlıca Projelerimiz",
+        "otherProjects": "Diğer Projelerimiz",
+        "ongoing": "Devam Ediyor",
+        "allProjectsTitle": "Tüm Projelerimiz",
+        "backToMain": "Ana Sayfaya Dön"
     },
     "categories": {
         "Betonarme": "Betonarme",

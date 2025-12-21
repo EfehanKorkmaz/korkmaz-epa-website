@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
+import AllProjectsPage from './pages/AllProjectsPage'
 import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
 
@@ -51,7 +52,9 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
         <Route path="/kurumsal" element={<PageWrapper><AboutPage /></PageWrapper>} />
         <Route path="/projects" element={<PageWrapper><ProjectsPage /></PageWrapper>} />
+        <Route path="/projects/all" element={<PageWrapper><AllProjectsPage /></PageWrapper>} />
         <Route path="/referanslar" element={<PageWrapper><ProjectsPage /></PageWrapper>} />
+        <Route path="/referanslar/all" element={<PageWrapper><AllProjectsPage /></PageWrapper>} />
         <Route path="/services" element={<PageWrapper><ServicesPage /></PageWrapper>} />
         <Route path="/hizmetler" element={<PageWrapper><ServicesPage /></PageWrapper>} />
         <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />

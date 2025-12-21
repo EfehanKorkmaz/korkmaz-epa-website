@@ -84,6 +84,10 @@ export const LanguageProvider = ({ children }) => {
             'Atıcı Konut 2021': 'Atici Residence 2021',
             'Bayramoğlu Villa 2022': 'Bayramoglu Villa 2022',
             'Eskihisar Çatı ve Tadilat 2021': 'Eskihisar Roof and Renovation 2021',
+            'Gökçe Nefes': 'Gokce Nefes',
+            'Gökçe Vital': 'Gokce Vital',
+            'Gökçe Parla': 'Gokce Parla',
+            'Gökçe Beosis': 'Gokce Beosis',
         };
 
         // Tam eşleşme kontrolü
