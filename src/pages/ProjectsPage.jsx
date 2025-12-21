@@ -36,7 +36,7 @@ const projectNameFixes = {
     'aslantürk makine fabrika bekçi kulübesi': 'Fabrika Bekçi Kulübesi',
     'dilovası prabrik yeri': 'Dilovası Prefabrik Altyapı',
     'Dilek hanım çatı': 'Çatı Bakımı ve Onarımı',
-    'Eren çatı': 'Çatı Çalışması 2',
+    'Eren çatı': 'Çatı Tadilatı ve Membran',
     'Şule hanım çatı BAYRAMOĞLU 2021': 'Çatı Çalışması 3 Bayramoğlu 2021',
     'Hüseyin aslantürk KONUT 2022': 'Konut 2022',
     'Hakan Şahin Konut': 'Darıca Konut',

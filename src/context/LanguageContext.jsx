@@ -72,7 +72,7 @@ export const LanguageProvider = ({ children }) => {
             'Fabrika Bekçi Kulübesi': 'Factory Guard House',
             'Dilovası Prefabrik Altyapı': 'Dilovasi Prefabricated Infrastructure',
             'Çatı Bakımı ve Onarımı': 'Roof Maintenance and Repair',
-            'Çatı Çalışması 2': 'Roofing Work 2',
+            'Çatı Tadilatı ve Membran': 'Roof Renovation and Membrane',
             'Çatı Çalışması 3 Bayramoğlu 2021': 'Roofing Work 3 Bayramoglu 2021',
             'Konut 2022': 'Residence 2022',
             'Darıca Konut': 'Darica Residence',
