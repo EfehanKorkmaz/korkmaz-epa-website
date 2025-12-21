@@ -1,10 +1,16 @@
-import { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import ProjectModal from '../components/ProjectModal';
 import cloudinaryData from '../cloudinaryData.json';
 
 // Sayfa başına proje sayısı
 const PROJECTS_PER_PAGE = 6;
+
+// Cloudinary optimizeli URL oluştur - küçük boyut için
+const getOptimizedUrl = (url, width = 600) => {
+    if (!url) return '';
+    // /upload/ sonrasına boyut parametreleri ekle
+    return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width},c_fill/`);
+};
 
 // Kategori eşleştirme fonksiyonu
 const getCategory = (folderName) => {
@@ -29,25 +35,18 @@ const projects = cloudinaryData.map((item, index) => ({
     name: item.folder,
     folder: item.folder,
     folderPath: item.folderPath,
-    coverImage: item.coverImage,
+    coverImage: getOptimizedUrl(item.coverImage, 700),
     images: item.images,
     imageCount: item.imageCount,
     category: getCategory(item.folder)
 }));
 
-// Image preloader helper
-const preloadImages = (imageUrls) => {
-    imageUrls.forEach(url => {
-        const img = new Image();
-        img.src = url;
-    });
-};
-
 const ProjectsPage = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState('Tümü');
     const [currentPage, setCurrentPage] = useState(0);
-    const [slideDirection, setSlideDirection] = useState(0);
+    const [preloadedImages, setPreloadedImages] = useState(new Set());
+    const gridRef = useRef(null);
 
     // Benzersiz kategorileri al
     const categories = useMemo(() => {
@@ -75,21 +74,19 @@ const ProjectsPage = () => {
         return filteredProjects.slice(start, start + PROJECTS_PER_PAGE);
     }, [filteredProjects, currentPage]);
 
-    // Sonraki ve önceki sayfa projelerini preload et
+    // ÖN YÜKLEME - Başlangıçta tüm cover image'leri yükle
     useEffect(() => {
-        // Sonraki sayfa
-        if (currentPage < totalPages - 1) {
-            const nextStart = (currentPage + 1) * PROJECTS_PER_PAGE;
-            const nextProjects = filteredProjects.slice(nextStart, nextStart + PROJECTS_PER_PAGE);
-            preloadImages(nextProjects.map(p => p.coverImage));
-        }
-        // Önceki sayfa
-        if (currentPage > 0) {
-            const prevStart = (currentPage - 1) * PROJECTS_PER_PAGE;
-            const prevProjects = filteredProjects.slice(prevStart, prevStart + PROJECTS_PER_PAGE);
-            preloadImages(prevProjects.map(p => p.coverImage));
-        }
-    }, [currentPage, filteredProjects, totalPages]);
+        const allCovers = filteredProjects.map(p => p.coverImage);
+        allCovers.forEach(url => {
+            if (!preloadedImages.has(url)) {
+                const img = new Image();
+                img.src = url;
+                img.onload = () => {
+                    setPreloadedImages(prev => new Set([...prev, url]));
+                };
+            }
+        });
+    }, [filteredProjects]);
 
     // Filtre değişince sayfa sıfırlansın
     const handleFilterChange = (newFilter) => {
@@ -97,36 +94,11 @@ const ProjectsPage = () => {
         setCurrentPage(0);
     };
 
-    // Sonraki sayfa
-    const nextPage = () => {
-        if (currentPage < totalPages - 1) {
-            setSlideDirection(1);
-            setCurrentPage(prev => prev + 1);
+    // Sayfa geçişi - ANIMASYON YOK, ANINDA
+    const goToPage = (page) => {
+        if (page >= 0 && page < totalPages) {
+            setCurrentPage(page);
         }
-    };
-
-    // Önceki sayfa
-    const prevPage = () => {
-        if (currentPage > 0) {
-            setSlideDirection(-1);
-            setCurrentPage(prev => prev - 1);
-        }
-    };
-
-    // Hızlı slide animasyonu - spring yerine tween kullan
-    const slideVariants = {
-        enter: (direction) => ({
-            x: direction > 0 ? 300 : -300,
-            opacity: 0
-        }),
-        center: {
-            x: 0,
-            opacity: 1
-        },
-        exit: (direction) => ({
-            x: direction < 0 ? 300 : -300,
-            opacity: 0
-        })
     };
 
     return (
@@ -146,21 +118,12 @@ const ProjectsPage = () => {
                             fontWeight: 'bold',
                             letterSpacing: '0.025em',
                             color: 'white',
-                            marginBottom: '16px',
-                            textAlign: 'center'
+                            marginBottom: '16px'
                         }}
                     >
                         Referanslarımız ve Tecrübelerimiz
                     </h1>
-                    <p
-                        style={{
-                            color: '#9ca3af',
-                            fontSize: '1.125rem',
-                            maxWidth: '700px',
-                            margin: '0 auto',
-                            textAlign: 'center'
-                        }}
-                    >
+                    <p style={{ color: '#9ca3af', fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto' }}>
                         Yılların birikimi ve deneyimiyle tamamladığımız projelerimiz
                     </p>
                 </div>
@@ -169,14 +132,7 @@ const ProjectsPage = () => {
             {/* Filter Buttons */}
             <section style={{ padding: '32px 0 48px 0', backgroundColor: '#111827' }}>
                 <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 16px' }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            justifyContent: 'center',
-                            gap: '12px'
-                        }}
-                    >
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '12px' }}>
                         {categories.map((category) => (
                             <button
                                 key={category}
@@ -186,7 +142,7 @@ const ProjectsPage = () => {
                                     borderRadius: '12px',
                                     fontSize: '14px',
                                     fontWeight: '600',
-                                    transition: 'all 200ms',
+                                    transition: 'all 150ms',
                                     minWidth: '120px',
                                     cursor: 'pointer',
                                     border: filter === category ? 'none' : '1px solid #374151',
@@ -223,7 +179,7 @@ const ProjectsPage = () => {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
                         {/* Sol Ok */}
                         <button
-                            onClick={prevPage}
+                            onClick={() => goToPage(currentPage - 1)}
                             disabled={currentPage === 0}
                             style={{
                                 flexShrink: 0,
@@ -233,7 +189,7 @@ const ProjectsPage = () => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                transition: 'all 150ms',
+                                transition: 'all 100ms',
                                 border: 'none',
                                 cursor: currentPage > 0 ? 'pointer' : 'not-allowed',
                                 backgroundColor: currentPage > 0 ? '#1f2937' : 'rgba(31, 41, 55, 0.3)',
@@ -243,7 +199,7 @@ const ProjectsPage = () => {
                             onMouseOver={(e) => {
                                 if (currentPage > 0) {
                                     e.currentTarget.style.backgroundColor = '#14b8a6';
-                                    e.currentTarget.style.transform = 'scale(1.1)';
+                                    e.currentTarget.style.transform = 'scale(1.05)';
                                 }
                             }}
                             onMouseOut={(e) => {
@@ -258,109 +214,94 @@ const ProjectsPage = () => {
                             </svg>
                         </button>
 
-                        {/* Projects Grid (Carousel) */}
-                        <div style={{ flex: 1, overflow: 'hidden' }}>
-                            <AnimatePresence mode="wait" custom={slideDirection}>
-                                <motion.div
-                                    key={currentPage}
-                                    custom={slideDirection}
-                                    variants={slideVariants}
-                                    initial="enter"
-                                    animate="center"
-                                    exit="exit"
-                                    transition={{
-                                        duration: 0.2,
-                                        ease: "easeOut"
-                                    }}
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(2, 1fr)',
-                                        gap: '32px'
-                                    }}
-                                >
-                                    {currentProjects.map((project) => (
-                                        <div
-                                            key={project.id}
-                                            onClick={() => setSelectedProject(project)}
-                                            style={{ cursor: 'pointer' }}
-                                        >
+                        {/* Projects Grid - NO ANIMATION */}
+                        <div ref={gridRef} style={{ flex: 1 }}>
+                            <div
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(2, 1fr)',
+                                    gap: '32px'
+                                }}
+                            >
+                                {currentProjects.map((project) => (
+                                    <div
+                                        key={project.id}
+                                        onClick={() => setSelectedProject(project)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <div style={{
+                                            position: 'relative',
+                                            overflow: 'hidden',
+                                            borderRadius: '16px',
+                                            backgroundColor: '#1f2937',
+                                            aspectRatio: '16/10',
+                                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                                        }}>
+                                            {/* Optimized Image */}
+                                            <img
+                                                src={project.coverImage}
+                                                alt={project.name}
+                                                style={{
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    objectFit: 'cover',
+                                                    transition: 'transform 200ms'
+                                                }}
+                                                onMouseOver={(e) => e.target.style.transform = 'scale(1.03)'}
+                                                onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                                                loading="eager"
+                                                decoding="async"
+                                            />
+
+                                            {/* Overlay */}
                                             <div style={{
-                                                position: 'relative',
-                                                overflow: 'hidden',
-                                                borderRadius: '16px',
-                                                backgroundColor: '#1f2937',
-                                                aspectRatio: '16/10',
-                                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                                                position: 'absolute',
+                                                inset: 0,
+                                                background: 'linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3), transparent)',
+                                                opacity: 0.7
+                                            }} />
+
+                                            {/* Content */}
+                                            <div style={{
+                                                position: 'absolute',
+                                                inset: 0,
+                                                padding: '24px',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'flex-end'
                                             }}>
-                                                {/* Image - No lazy loading for carousel */}
-                                                <img
-                                                    src={project.coverImage}
-                                                    alt={project.name}
-                                                    style={{
-                                                        width: '100%',
-                                                        height: '100%',
-                                                        objectFit: 'cover',
-                                                        transition: 'transform 300ms'
-                                                    }}
-                                                    onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-                                                    onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
-                                                    onError={(e) => {
-                                                        e.target.src = 'https://res.cloudinary.com/duwqt0u27/image/upload/f_auto,q_auto,w_800,h_500,c_fill,e_blur:200/sample';
-                                                    }}
-                                                    loading="eager"
-                                                    decoding="async"
-                                                />
-
-                                                {/* Overlay */}
-                                                <div style={{
-                                                    position: 'absolute',
-                                                    inset: 0,
-                                                    background: 'linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3), transparent)',
-                                                    opacity: 0.7
-                                                }} />
-
-                                                {/* Content */}
-                                                <div style={{
-                                                    position: 'absolute',
-                                                    inset: 0,
-                                                    padding: '24px',
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    justifyContent: 'flex-end'
+                                                <span style={{
+                                                    display: 'inline-block',
+                                                    padding: '6px 16px',
+                                                    backgroundColor: 'rgba(20, 184, 166, 0.9)',
+                                                    color: 'white',
+                                                    fontSize: '12px',
+                                                    fontWeight: '600',
+                                                    borderRadius: '50px',
+                                                    marginBottom: '12px',
+                                                    width: 'fit-content'
                                                 }}>
-                                                    <span style={{
-                                                        display: 'inline-block',
-                                                        padding: '6px 16px',
-                                                        backgroundColor: 'rgba(20, 184, 166, 0.9)',
-                                                        color: 'white',
-                                                        fontSize: '12px',
-                                                        fontWeight: '600',
-                                                        borderRadius: '50px',
-                                                        marginBottom: '12px',
-                                                        width: 'fit-content'
-                                                    }}>
-                                                        {project.category}
-                                                    </span>
-                                                    <h3 style={{
-                                                        color: 'white',
-                                                        fontWeight: 'bold',
-                                                        fontSize: '1.25rem',
-                                                        marginBottom: '4px',
-                                                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-                                                    }}>
-                                                        {project.name}
-                                                    </h3>
-                                                </div>
+                                                    {project.category}
+                                                </span>
+                                                <h3 style={{
+                                                    color: 'white',
+                                                    fontWeight: 'bold',
+                                                    fontSize: '1.25rem',
+                                                    marginBottom: '4px',
+                                                    textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                                                }}>
+                                                    {project.name}
+                                                </h3>
                                             </div>
                                         </div>
-                                    ))}
-                                </motion.div>
-                            </AnimatePresence>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Sağ Ok */}
                         <button
-                            onClick={nextPage}
+                            onClick={() => goToPage(currentPage + 1)}
                             disabled={currentPage >= totalPages - 1}
                             style={{
                                 flexShrink: 0,
@@ -370,7 +311,7 @@ const ProjectsPage = () => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                transition: 'all 150ms',
+                                transition: 'all 100ms',
                                 border: 'none',
                                 cursor: currentPage < totalPages - 1 ? 'pointer' : 'not-allowed',
                                 backgroundColor: currentPage < totalPages - 1 ? '#1f2937' : 'rgba(31, 41, 55, 0.3)',
@@ -380,7 +321,7 @@ const ProjectsPage = () => {
                             onMouseOver={(e) => {
                                 if (currentPage < totalPages - 1) {
                                     e.currentTarget.style.backgroundColor = '#14b8a6';
-                                    e.currentTarget.style.transform = 'scale(1.1)';
+                                    e.currentTarget.style.transform = 'scale(1.05)';
                                 }
                             }}
                             onMouseOut={(e) => {
@@ -403,15 +344,12 @@ const ProjectsPage = () => {
                             {Array.from({ length: totalPages }).map((_, idx) => (
                                 <button
                                     key={idx}
-                                    onClick={() => {
-                                        setSlideDirection(idx > currentPage ? 1 : -1);
-                                        setCurrentPage(idx);
-                                    }}
+                                    onClick={() => goToPage(idx)}
                                     style={{
                                         height: '12px',
                                         width: idx === currentPage ? '40px' : '12px',
                                         borderRadius: '50px',
-                                        transition: 'all 150ms',
+                                        transition: 'all 100ms',
                                         backgroundColor: idx === currentPage ? '#14b8a6' : '#4b5563',
                                         border: 'none',
                                         cursor: 'pointer'
