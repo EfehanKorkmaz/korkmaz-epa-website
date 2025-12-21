@@ -34,7 +34,7 @@ const getCategory = (folderName) => {
 // Proje ismi düzeltmeleri haritası (folder -> displayName)
 const projectNameFixes = {
     'aslantürk makine fabrika bekçi kulübesi': 'Fabrika Bekçi Kulübesi',
-    'Dilek hanım çatı': 'Çatı Çalışması 1',
+    'Dilek hanım çatı': 'Çatı Bakımı ve Onarımı',
     'Eren çatı': 'Çatı Çalışması 2',
     'Şule hanım çatı BAYRAMOĞLU 2021': 'Çatı Çalışması 3 Bayramoğlu 2021',
     'Hüseyin aslantürk KONUT 2022': 'Konut 2022',
