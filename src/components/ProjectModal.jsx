@@ -111,13 +111,46 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         setCurrentIndex(idx);
     };
 
-    // Swipe handler - hassasiyeti düsük
-    const handleDragEnd = (event, info) => {
-        const threshold = 100; // Daha yüksek eşik = daha az hassasiyet
-        if (info.offset.x > threshold) {
-            prevImage();
-        } else if (info.offset.x < -threshold) {
-            nextImage();
+    // Touch handler - tek parmak swipe, iki parmak zoom
+    const touchStartRef = useRef({ x: 0, y: 0, time: 0, isSingleTouch: true });
+
+    const handleTouchStart = (e) => {
+        // İki veya daha fazla parmak varsa swipe'ı devre dışı bırak (pinch-zoom için)
+        if (e.touches.length >= 2) {
+            touchStartRef.current.isSingleTouch = false;
+            return;
+        }
+        touchStartRef.current = {
+            x: e.touches[0].clientX,
+            y: e.touches[0].clientY,
+            time: Date.now(),
+            isSingleTouch: true
+        };
+    };
+
+    const handleTouchEnd = (e) => {
+        // İki parmak kullanıldıysa swipe yapma
+        if (!touchStartRef.current.isSingleTouch) {
+            touchStartRef.current.isSingleTouch = true; // Reset
+            return;
+        }
+
+        const touch = e.changedTouches[0];
+        const deltaX = touch.clientX - touchStartRef.current.x;
+        const deltaY = Math.abs(touch.clientY - touchStartRef.current.y);
+        const deltaTime = Date.now() - touchStartRef.current.time;
+
+        // Sadece hızlı ve yatay swipe'ları algıla
+        const threshold = 80;
+        const maxTime = 300; // ms
+        const maxVertical = 100; // Dikey hareket sınırı
+
+        if (Math.abs(deltaX) > threshold && deltaTime < maxTime && deltaY < maxVertical) {
+            if (deltaX > 0) {
+                prevImage();
+            } else {
+                nextImage();
+            }
         }
     };
 
@@ -214,11 +247,9 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                                     opacity: { duration: 0.2 }
                                 }}
                                 className="absolute inset-0 flex items-center justify-center"
-                                // Swipe desteği - sadece mobilde
-                                drag={isMobile ? "x" : false}
-                                dragConstraints={{ left: 0, right: 0 }}
-                                dragElastic={0.2}
-                                onDragEnd={handleDragEnd}
+                                // Touch events ile swipe - drag yerine
+                                onTouchStart={isMobile ? handleTouchStart : undefined}
+                                onTouchEnd={isMobile ? handleTouchEnd : undefined}
                             >
                                 {currentImage ? (
                                     <>
