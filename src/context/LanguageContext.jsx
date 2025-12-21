@@ -64,30 +64,29 @@ export const LanguageProvider = ({ children }) => {
 
     // Akıllı proje ismi çevirisi
     const translateProjectName = useCallback((name) => {
-        // ÖNCELİKLİ: Tam proje ismi değişiklikleri (Her iki dil için de geçerli)
+        // Türkçe modda değişiklik yok
+        if (language === 'tr') return name;
+
+        // İngilizce çeviriler için mapping (Türkçe isim -> İngilizce isim)
         const projectNameMappings = {
-            // Kullanıcı istekleri doğrultusunda isim değişiklikleri
-            'Eren Çatı': { tr: 'Çatı', en: 'Roof' },
-            'Dilek Hanım Çatı': { tr: 'Çatı', en: 'Roof' },
-            'Hüseyin Aslantürk Konut 2022': { tr: 'Konut 2022', en: 'Residence 2022' },
-            'Hakan Şahin Konut': { tr: 'Darıca Konut', en: 'Darica Residence' },
-            'Hacıoğulları Küçükyalı Beton Santrali': { tr: 'Küçükyalı Beton Santrali', en: 'Küçükyalı Concrete Plant' },
-            'Gözde Konut': { tr: 'Osmangazi Konut', en: 'Osmangazi Residence' },
-            'Mehmet Bey Villa Bayramoğlu': { tr: 'Villa Bayramoğlu', en: 'Bayramoğlu Villa' },
-            'Osman Sayılı İş Merkezi Binası': { tr: 'İş Merkezi Binası', en: 'Business Center Building' },
-            'Ömer Atıcı Konut': { tr: 'Atıcı Konut', en: 'Atıcı Residence' },
-            'Şule Hanım Çatı': { tr: 'Çatı', en: 'Roof' },
-            'Yusuf Destek 2022': { tr: 'Bayramoğlu Villa 2022', en: 'Bayramoğlu Villa 2022' },
-            'Yusuf Aka Çatı ve Tadilat': { tr: 'Eskihisar Çatı ve Tadilat 2021', en: 'Eskihisar Roof and Renovation 2021' },
+            'Çatı Çalışması 1': 'Roofing Work 1',
+            'Çatı Çalışması 2': 'Roofing Work 2',
+            'Çatı Çalışması 3 Bayramoğlu 2021': 'Roofing Work 3 Bayramoglu 2021',
+            'Konut 2022': 'Residence 2022',
+            'Darıca Konut': 'Darica Residence',
+            'Küçükyalı Beton Santrali': 'Kucukyali Concrete Plant',
+            'Osmangazi Konut 2021': 'Osmangazi Residence 2021',
+            'Villa Çevre Düzenleme Bayramoğlu 2022': 'Villa Landscaping Bayramoglu 2022',
+            'İş Merkezi Binası Osmangazi 2016': 'Business Center Building Osmangazi 2016',
+            'Atıcı Konut 2021': 'Atici Residence 2021',
+            'Bayramoğlu Villa 2022': 'Bayramoglu Villa 2022',
+            'Eskihisar Çatı ve Tadilat 2021': 'Eskihisar Roof and Renovation 2021',
         };
 
         // Tam eşleşme kontrolü
         if (projectNameMappings[name]) {
-            return projectNameMappings[name][language];
+            return projectNameMappings[name];
         }
-
-        // Türkçe modda diğer değişiklik yok
-        if (language === 'tr') return name;
 
         // 1. Önce stringi temizle ve hazırla
         // Türkçe karakterler için özel lowercase işlemi (İ -> i)
