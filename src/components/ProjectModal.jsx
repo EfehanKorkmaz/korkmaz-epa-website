@@ -67,14 +67,35 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         }
     }, [project, isOpen]);
 
+    // Geri tuşu ile modal'ı kapat (History API)
+    useEffect(() => {
+        if (isOpen) {
+            // Modal açıldığında history'ye state ekle
+            window.history.pushState({ modal: true }, '');
+
+            const handlePopState = (e) => {
+                // Geri tuşuna basıldığında modal'ı kapat
+                onClose();
+            };
+
+            window.addEventListener('popstate', handlePopState);
+            return () => {
+                window.removeEventListener('popstate', handlePopState);
+            };
+        }
+    }, [isOpen, onClose]);
+
     // ESC tuşu ile kapat
     useEffect(() => {
         const handleEsc = (e) => {
-            if (e.key === 'Escape') onClose();
+            if (e.key === 'Escape') {
+                // ESC ile kapatırken history'yi de geri al
+                if (isOpen) window.history.back();
+            }
         };
         window.addEventListener('keydown', handleEsc);
         return () => window.removeEventListener('keydown', handleEsc);
-    }, [onClose]);
+    }, [isOpen]);
 
     // Ok tuşları ile geçiş
     useEffect(() => {
