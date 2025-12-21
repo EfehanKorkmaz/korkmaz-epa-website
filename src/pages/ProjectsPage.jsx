@@ -1,15 +1,16 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import ProjectModal from '../components/ProjectModal';
 import cloudinaryData from '../cloudinaryData.json';
 
 // Sayfa başına proje sayısı
 const PROJECTS_PER_PAGE = 6;
 
-// Cloudinary optimizeli URL oluştur - küçük boyut için
+// Cloudinary optimizeli URL oluştur - denge: kalite vs performans
 const getOptimizedUrl = (url, width = 600) => {
     if (!url) return '';
-    // /upload/ sonrasına boyut parametreleri ekle
-    return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width},c_fill/`);
+    // /upload/ sonrasına boyut parametreleri ekle - webp format ve q_100 kalite
+    return url.replace('/upload/', `/upload/f_webp,q_100,w_${width},c_fill/`);
 };
 
 // Kategori eşleştirme fonksiyonu
@@ -35,7 +36,7 @@ const projects = cloudinaryData.map((item, index) => ({
     name: item.folder,
     folder: item.folder,
     folderPath: item.folderPath,
-    coverImage: getOptimizedUrl(item.coverImage, 700),
+    coverImage: getOptimizedUrl(item.coverImage, 400),
     images: item.images,
     imageCount: item.imageCount,
     category: getCategory(item.folder)
@@ -45,7 +46,9 @@ const ProjectsPage = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState('Tümü');
     const [currentPage, setCurrentPage] = useState(0);
+    const [slideDirection, setSlideDirection] = useState(1); // 1: sağdan sola, -1: soldan sağa
     const [preloadedImages, setPreloadedImages] = useState(new Set());
+    const [isGridVisible, setIsGridVisible] = useState(false);
     const gridRef = useRef(null);
 
     // Benzersiz kategorileri al
@@ -74,6 +77,22 @@ const ProjectsPage = () => {
         return filteredProjects.slice(start, start + PROJECTS_PER_PAGE);
     }, [filteredProjects, currentPage]);
 
+    // Grid bölgesi görünürlüğünü takip et - sadece kartlar görünürken
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsGridVisible(entry.isIntersecting);
+            },
+            { threshold: 0.3 } // %30 görünür olduğunda tetikle
+        );
+
+        if (gridRef.current) {
+            observer.observe(gridRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     // ÖN YÜKLEME - Başlangıçta tüm cover image'leri yükle
     useEffect(() => {
         const allCovers = filteredProjects.map(p => p.coverImage);
@@ -94,9 +113,10 @@ const ProjectsPage = () => {
         setCurrentPage(0);
     };
 
-    // Sayfa geçişi - ANIMASYON YOK, ANINDA
-    const goToPage = (page) => {
+    // Sayfa geçişi - Kayma animasyonu ile
+    const goToPage = (page, direction = 1) => {
         if (page >= 0 && page < totalPages) {
+            setSlideDirection(direction);
             setCurrentPage(page);
         }
     };
@@ -172,62 +192,122 @@ const ProjectsPage = () => {
                 </div>
             </section>
 
-            {/* Projects Grid with Navigation */}
-            <section style={{ padding: '48px 0 96px 0' }}>
-                <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 24px' }}>
-                    {/* Navigation Container */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
-                        {/* Sol Ok */}
-                        <button
-                            onClick={() => goToPage(currentPage - 1)}
-                            disabled={currentPage === 0}
-                            style={{
-                                flexShrink: 0,
-                                width: '64px',
-                                height: '64px',
-                                borderRadius: '12px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                transition: 'all 100ms',
-                                border: 'none',
-                                cursor: currentPage > 0 ? 'pointer' : 'not-allowed',
-                                backgroundColor: currentPage > 0 ? '#1f2937' : 'rgba(31, 41, 55, 0.3)',
-                                color: currentPage > 0 ? 'white' : '#4b5563',
-                                boxShadow: currentPage > 0 ? '0 10px 15px -3px rgba(0, 0, 0, 0.3)' : 'none'
-                            }}
-                            onMouseOver={(e) => {
-                                if (currentPage > 0) {
-                                    e.currentTarget.style.backgroundColor = '#14b8a6';
-                                    e.currentTarget.style.transform = 'scale(1.05)';
-                                }
-                            }}
-                            onMouseOut={(e) => {
-                                if (currentPage > 0) {
-                                    e.currentTarget.style.backgroundColor = '#1f2937';
-                                    e.currentTarget.style.transform = 'scale(1)';
-                                }
-                            }}
-                        >
-                            <svg style={{ width: '32px', height: '32px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
+            {/* Fixed Navigation Arrows - Sadece grid görünürken, animasyonlu */}
+            <AnimatePresence>
+                {isGridVisible && currentPage > 0 && (
+                    <motion.button
+                        key="left-arrow"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        onClick={() => goToPage(currentPage - 1, -1)}
+                        style={{
+                            position: 'fixed',
+                            left: '24px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            zIndex: 40,
+                            width: '56px',
+                            height: '56px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: 'none',
+                            cursor: 'pointer',
+                            backgroundColor: 'rgba(31, 41, 55, 0.9)',
+                            color: 'white',
+                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)',
+                            backdropFilter: 'blur(8px)'
+                        }}
+                        whileHover={{
+                            backgroundColor: '#14b8a6',
+                            scale: 1.1
+                        }}
+                    >
+                        <svg style={{ width: '28px', height: '28px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </motion.button>
+                )}
 
-                        {/* Projects Grid - NO ANIMATION */}
-                        <div ref={gridRef} style={{ flex: 1 }}>
-                            <div
+                {isGridVisible && currentPage < totalPages - 1 && (
+                    <motion.button
+                        key="right-arrow"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        onClick={() => goToPage(currentPage + 1, 1)}
+                        style={{
+                            position: 'fixed',
+                            right: '24px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            zIndex: 40,
+                            width: '56px',
+                            height: '56px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: 'none',
+                            cursor: 'pointer',
+                            backgroundColor: 'rgba(31, 41, 55, 0.9)',
+                            color: 'white',
+                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)',
+                            backdropFilter: 'blur(8px)'
+                        }}
+                        whileHover={{
+                            backgroundColor: '#14b8a6',
+                            scale: 1.1
+                        }}
+                    >
+                        <svg style={{ width: '28px', height: '28px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </motion.button>
+                )}
+            </AnimatePresence>
+
+            {/* Projects Grid */}
+            <section style={{ padding: '48px 0 96px 0' }}>
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+
+                    {/* Projects Grid - WITH SLIDE ANIMATIONS */}
+                    <div ref={gridRef} style={{ flex: 1, overflow: 'hidden' }}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentPage}
+                                initial={{ opacity: 0, x: slideDirection * 100 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: slideDirection * -100 }}
+                                transition={{ duration: 0.3, ease: 'easeInOut' }}
                                 style={{
                                     display: 'grid',
                                     gridTemplateColumns: 'repeat(2, 1fr)',
-                                    gap: '32px'
+                                    gap: '32px',
+                                    willChange: 'transform, opacity'
                                 }}
                             >
-                                {currentProjects.map((project) => (
-                                    <div
+                                {currentProjects.map((project, index) => (
+                                    <motion.div
                                         key={project.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{
+                                            duration: 0.3,
+                                            delay: index * 0.05,
+                                            ease: 'easeOut'
+                                        }}
                                         onClick={() => setSelectedProject(project)}
-                                        style={{ cursor: 'pointer' }}
+                                        style={{
+                                            cursor: 'pointer',
+                                            willChange: 'transform, opacity',
+                                            transform: 'translateZ(0)'
+                                        }}
+                                        whileHover={{ scale: 1.02 }}
                                     >
                                         <div style={{
                                             position: 'relative',
@@ -247,8 +327,6 @@ const ProjectsPage = () => {
                                                     objectFit: 'cover',
                                                     transition: 'transform 200ms'
                                                 }}
-                                                onMouseOver={(e) => e.target.style.transform = 'scale(1.03)'}
-                                                onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
                                                 loading="eager"
                                                 decoding="async"
                                             />
@@ -288,53 +366,17 @@ const ProjectsPage = () => {
                                                     fontWeight: 'bold',
                                                     fontSize: '1.25rem',
                                                     marginBottom: '4px',
-                                                    textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                                                    textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                                                    textTransform: 'uppercase'
                                                 }}>
                                                     {project.name}
                                                 </h3>
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
-                            </div>
-                        </div>
-
-                        {/* Sağ Ok */}
-                        <button
-                            onClick={() => goToPage(currentPage + 1)}
-                            disabled={currentPage >= totalPages - 1}
-                            style={{
-                                flexShrink: 0,
-                                width: '64px',
-                                height: '64px',
-                                borderRadius: '12px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                transition: 'all 100ms',
-                                border: 'none',
-                                cursor: currentPage < totalPages - 1 ? 'pointer' : 'not-allowed',
-                                backgroundColor: currentPage < totalPages - 1 ? '#1f2937' : 'rgba(31, 41, 55, 0.3)',
-                                color: currentPage < totalPages - 1 ? 'white' : '#4b5563',
-                                boxShadow: currentPage < totalPages - 1 ? '0 10px 15px -3px rgba(0, 0, 0, 0.3)' : 'none'
-                            }}
-                            onMouseOver={(e) => {
-                                if (currentPage < totalPages - 1) {
-                                    e.currentTarget.style.backgroundColor = '#14b8a6';
-                                    e.currentTarget.style.transform = 'scale(1.05)';
-                                }
-                            }}
-                            onMouseOut={(e) => {
-                                if (currentPage < totalPages - 1) {
-                                    e.currentTarget.style.backgroundColor = '#1f2937';
-                                    e.currentTarget.style.transform = 'scale(1)';
-                                }
-                            }}
-                        >
-                            <svg style={{ width: '32px', height: '32px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
 
                     {/* Sayfa Bilgisi ve Noktalar */}
