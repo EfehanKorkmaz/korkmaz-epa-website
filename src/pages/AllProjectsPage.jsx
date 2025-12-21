@@ -14,8 +14,21 @@ const getOptimizedUrl = (url, width = 600) => {
     return url.replace('/upload/', `/upload/f_webp,q_100,w_${width},c_fill/`);
 };
 
+// Kategori düzeltmeleri haritası (folder -> category)
+const categoryOverrides = {
+    'Gökçe Nefes': 'Konut',
+    'Gökçe Vital': 'Konut',
+    'Gökçe parla 2023': 'Konut',
+    'Gökçe yapı beosis iş merkezi 2021': 'Ticari',
+};
+
 // Kategori eşleştirme fonksiyonu
 const getCategory = (folderName) => {
+    // Önce override kontrolü
+    if (categoryOverrides[folderName]) {
+        return categoryOverrides[folderName];
+    }
+
     const name = folderName.toLowerCase();
 
     if (name.includes('çatı') || name.includes('cati')) return 'Çatı Sistemleri';
