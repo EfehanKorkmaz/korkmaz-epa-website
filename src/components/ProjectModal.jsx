@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 // Thumbnail için düşük kaliteli URL oluştur
 const getThumbnailUrl = (url) => {
@@ -8,6 +9,7 @@ const getThumbnailUrl = (url) => {
 };
 
 const ProjectModal = ({ project, isOpen, onClose }) => {
+    const { translateCategory, translateProjectName } = useLanguage();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(0); // -1: sol, 1: sağ
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -230,8 +232,8 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                     {isMobile ? (
                         <div className="bg-gray-900 px-4 py-3 flex items-center justify-between">
                             <div className="flex-1 min-w-0 pr-4">
-                                <h2 className="text-sm font-bold text-white uppercase truncate">{project.name}</h2>
-                                <span className="text-xs text-teal-400">{project.category}</span>
+                                <h2 className="text-sm font-bold text-white uppercase truncate">{translateProjectName(project.name)}</h2>
+                                <span className="text-xs text-teal-400">{translateCategory(project.category)}</span>
                             </div>
                             <button
                                 onClick={handleClose}
@@ -245,8 +247,8 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                     ) : (
                         <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 to-transparent">
                             <div>
-                                <h2 className="text-xl font-bold text-white uppercase">{project.name}</h2>
-                                <span className="text-sm text-teal-400">{project.category}</span>
+                                <h2 className="text-xl font-bold text-white uppercase">{translateProjectName(project.name)}</h2>
+                                <span className="text-sm text-teal-400">{translateCategory(project.category)}</span>
                             </div>
                             <button
                                 onClick={handleClose}

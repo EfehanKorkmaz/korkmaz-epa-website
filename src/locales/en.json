@@ -15,7 +15,12 @@
     "about": {
         "title": "About Us",
         "subtitle": "Our Corporate Identity and Values",
-        "description": "With over 20 years of experience, we provide reliable and quality construction services."
+        "description": "With over 20 years of experience, we provide reliable and quality construction services.",
+        "companyDesc": "Korkmaz EPA Construction has been serving the construction sector for over two decades. With our experienced team and innovative approach, we deliver quality projects.",
+        "mission": "Our Mission",
+        "missionText": "To provide modern, safe and sustainable construction solutions that meet the needs of our clients.",
+        "vision": "Our Vision",
+        "visionText": "To be a leading construction company recognized for quality, reliability and innovation."
     },
     "projects": {
         "title": "Our Projects and Experience",
@@ -27,6 +32,67 @@
         "swipe": "Swipe",
         "photoNotFound": "Photo not found"
     },
+    "categories": {
+        "Betonarme": "Reinforced Concrete",
+        "Çatı Sistemleri": "Roofing Systems",
+        "Diğer": "Other",
+        "Endüstriyel": "Industrial",
+        "Güçlendirme": "Strengthening",
+        "Kamu": "Public",
+        "Konut": "Residential",
+        "Prefabrik": "Prefabricated",
+        "Spor Tesisleri": "Sports Facilities",
+        "Tadilat": "Renovation",
+        "Ticari": "Commercial"
+    },
+    "projectWords": {
+        "Konut": "Residence",
+        "Villa": "Villa",
+        "Çatı": "Roof",
+        "Belediye": "Municipality",
+        "Çalışması": "Work",
+        "Çalışmaları": "Works",
+        "İnşaat": "Construction",
+        "Tadilat": "Renovation",
+        "Güçlendirme": "Strengthening",
+        "Fabrika": "Factory",
+        "Betonarme": "Reinforced Concrete",
+        "İşleri": "Works",
+        "Prefabrik": "Prefabricated",
+        "Mezarlık": "Cemetery",
+        "Köprü": "Bridge",
+        "Merdiven": "Stairs",
+        "Kapı": "Gate",
+        "Giriş": "Entrance",
+        "Saha": "Field",
+        "Betonu": "Concrete",
+        "Istinat": "Retaining",
+        "Çeşitli": "Various",
+        "Alanlarda": "Areas",
+        "Çevre": "Landscape",
+        "Düzenleme": "Arrangement",
+        "Ek": "Addition",
+        "Bina": "Building",
+        "İş Merkezi": "Business Center",
+        "Binası": "Building",
+        "Yat Limanı": "Marina",
+        "Liman": "Port",
+        "Taksi Durağı": "Taxi Stand",
+        "Bekçi Kulübesi": "Guard House",
+        "Teras Kapama": "Terrace Enclosure",
+        "Çatı Katı": "Attic",
+        "Ustalık": "Mastery",
+        "Dönemi": "Period",
+        "Makine": "Machine",
+        "Basket Sahası": "Basketball Court",
+        "TEMEL": "Foundation",
+        "Taş": "Stone",
+        "Ustası": "Master",
+        "Takımı": "Team",
+        "Geçici": "Temporary",
+        "Beton Santrali": "Concrete Plant",
+        "Kalıpçı": "Formwork"
+    },
     "services": {
         "title": "Our Services",
         "subtitle": "Custom solutions for you",
@@ -35,16 +101,62 @@
         "urbanRenewal": "Urban Renewal",
         "contracting": "Contracting Services",
         "renovation": "Renovation & Restoration",
-        "roofing": "Roofing Systems"
+        "roofing": "Roofing Systems",
+        "residentialDesc": "We offer quality and comfortable residential projects for modern living spaces.",
+        "commercialDesc": "We provide turnkey solutions for business centers, plazas and commercial complexes.",
+        "urbanRenewalDesc": "We carry out urban renewal projects for safe and modern living spaces.",
+        "contractingDesc": "We provide professional service in construction contracting at all scales.",
+        "renovationDesc": "We offer professional renovation, repair and strengthening services to preserve the value and extend the life of your buildings.",
+        "roofingDesc": "We extend the life of your living spaces with roofing solutions that protect your buildings from external factors, provide high durability and energy savings.",
+        "residentialFeatures": [
+            "Residence Projects",
+            "Mass Housing",
+            "Luxury Villas"
+        ],
+        "commercialFeatures": [
+            "Business Centers",
+            "Shopping Mall Projects",
+            "Office Buildings"
+        ],
+        "urbanRenewalFeatures": [
+            "Risk Assessment",
+            "Project Management",
+            "Rights Ownership"
+        ],
+        "contractingFeatures": [
+            "Public Projects",
+            "Private Sector",
+            "Industrial Facilities"
+        ],
+        "renovationFeatures": [
+            "Turnkey Renovation",
+            "Building Strengthening",
+            "Facade Renewal"
+        ],
+        "roofingFeatures": [
+            "Advanced Heat & Water Insulation",
+            "Steel & Wood Roof Construction",
+            "Modern Panel & Clamp Systems"
+        ]
     },
     "contact": {
         "title": "Contact",
         "subtitle": "Get in Touch with Us",
         "name": "Your Name",
+        "surname": "Your Surname",
         "email": "Email",
         "phone": "Phone",
+        "subject": "Subject",
         "message": "Your Message",
-        "send": "Send"
+        "send": "Send Message",
+        "sending": "Sending...",
+        "success": "Your message has been sent successfully!",
+        "error": "An error occurred. Please try again.",
+        "address": "Address",
+        "callUs": "Call Us",
+        "emailUs": "Email Us",
+        "formTitle": "Send Us a Message",
+        "formSubtitle": "We will get back to you as soon as possible."
     },
     "footer": {
         "cta": "Ready for Your Project!",

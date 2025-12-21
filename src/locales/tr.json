@@ -15,7 +15,12 @@
     "about": {
         "title": "Hakkımızda",
         "subtitle": "Kurumsal Kimlik ve Değerlerimiz",
-        "description": "20 yılı aşkın deneyimimizle, güvenilir ve kaliteli inşaat hizmetleri sunuyoruz."
+        "description": "20 yılı aşkın deneyimimizle, güvenilir ve kaliteli inşaat hizmetleri sunuyoruz.",
+        "companyDesc": "Korkmaz EPA İnşaat, iki yıldan fazla süredir inşaat sektörüne hizmet vermektedir. Deneyimli ekibimiz ve yenilikçi yaklaşımımızla kaliteli projeler sunuyoruz.",
+        "mission": "Misyonumuz",
+        "missionText": "Müşterilerimizin ihtiyaçlarını karşılayan modern, güvenli ve sürdürülebilir inşaat çözümleri sunmak.",
+        "vision": "Vizyonumuz",
+        "visionText": "Kalite, güvenilirlik ve yenilikçilikle tanınan lider bir inşaat şirketi olmak."
     },
     "projects": {
         "title": "Referanslarımız ve Tecrübelerimiz",
@@ -27,6 +32,20 @@
         "swipe": "Kaydır",
         "photoNotFound": "Fotoğraf bulunamadı"
     },
+    "categories": {
+        "Betonarme": "Betonarme",
+        "Çatı Sistemleri": "Çatı Sistemleri",
+        "Diğer": "Diğer",
+        "Endüstriyel": "Endüstriyel",
+        "Güçlendirme": "Güçlendirme",
+        "Kamu": "Kamu",
+        "Konut": "Konut",
+        "Prefabrik": "Prefabrik",
+        "Spor Tesisleri": "Spor Tesisleri",
+        "Tadilat": "Tadilat",
+        "Ticari": "Ticari"
+    },
+    "projectWords": {},
     "services": {
         "title": "Hizmetlerimiz",
         "subtitle": "Size özel çözümler sunuyoruz",
@@ -35,16 +54,62 @@
         "urbanRenewal": "Kentsel Dönüşüm",
         "contracting": "Taahhüt İşleri",
         "renovation": "Tadilat ve Restorasyon",
-        "roofing": "Çatı Sistemleri"
+        "roofing": "Çatı Sistemleri",
+        "residentialDesc": "Modern yaşam alanları için kaliteli ve konforlu konut projeleri sunuyoruz.",
+        "commercialDesc": "İş merkezleri, plaza ve ticari kompleksler için anahtar teslim çözümler sunuyoruz.",
+        "urbanRenewalDesc": "Güvenli ve modern yaşam alanları için kentsel dönüşüm projeleri yürütüyoruz.",
+        "contractingDesc": "Her ölçekte inşaat taahhüt işlerinde profesyonel hizmet sunuyoruz.",
+        "renovationDesc": "Yapılarınızın değerini korumak ve ömrünü uzatmak için profesyonel tadilat, onarım ve güçlendirme hizmetleri sunuyoruz.",
+        "roofingDesc": "Yapılarınızı dış etkenlerden koruyan, yüksek dayanımlı ve enerji tasarrufu sağlayan çatı çözümleriyle yaşam alanlarınızın ömrünü uzatıyoruz.",
+        "residentialFeatures": [
+            "Rezidans Projeleri",
+            "Toplu Konut",
+            "Lüks Villalar"
+        ],
+        "commercialFeatures": [
+            "İş Merkezleri",
+            "AVM Projeleri",
+            "Ofis Binaları"
+        ],
+        "urbanRenewalFeatures": [
+            "Riskli Yapı Tespiti",
+            "Proje Yönetimi",
+            "Hak Sahipliği"
+        ],
+        "contractingFeatures": [
+            "Kamu Projeleri",
+            "Özel Sektör",
+            "Endüstriyel Tesisler"
+        ],
+        "renovationFeatures": [
+            "Anahtar Teslim Tadilat",
+            "Bina Güçlendirme",
+            "Dış Cephe Yenileme"
+        ],
+        "roofingFeatures": [
+            "İleri Derece Isı ve Su Yalıtım Çözümleri",
+            "Çelik ve Ahşap Çatı Konstrüksiyon Uygulamaları",
+            "Modern Panel ve Kenet Çatı Sistemleri Kurulumu"
+        ]
     },
     "contact": {
         "title": "İletişim",
         "subtitle": "Bizimle İletişime Geçin",
         "name": "Adınız",
+        "surname": "Soyadınız",
         "email": "E-posta",
         "phone": "Telefon",
+        "subject": "Konu",
         "message": "Mesajınız",
-        "send": "Gönder"
+        "send": "Mesaj Gönder",
+        "sending": "Gönderiliyor...",
+        "success": "Mesajınız başarıyla gönderildi!",
+        "error": "Bir hata oluştu. Lütfen tekrar deneyin.",
+        "address": "Adres",
+        "callUs": "Bizi Arayın",
+        "emailUs": "E-posta Gönderin",
+        "formTitle": "Bize Mesaj Gönderin",
+        "formSubtitle": "En kısa sürede size dönüş yapacağız."
     },
     "footer": {
         "cta": "Projeniz İçin Hazırız!",

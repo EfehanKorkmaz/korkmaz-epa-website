@@ -14,21 +14,17 @@ export const LanguageProvider = ({ children }) => {
 
     // Tarayıcı dilini veya localStorage'daki tercihi algıla
     useEffect(() => {
-        // Önce localStorage'a bak
         const savedLang = localStorage.getItem('language');
         if (savedLang && (savedLang === 'tr' || savedLang === 'en')) {
             setLanguage(savedLang);
             return;
         }
 
-        // Tarayıcı dilini kontrol et
         const browserLang = navigator.language || navigator.userLanguage;
         if (browserLang) {
-            // tr, tr-TR, en-US, en-GB vb. formatlarını kontrol et
             if (browserLang.toLowerCase().startsWith('tr')) {
                 setLanguage('tr');
             } else {
-                // Türkçe değilse İngilizce göster
                 setLanguage('en');
             }
         }
@@ -58,8 +54,6 @@ export const LanguageProvider = ({ children }) => {
             if (result && result[k] !== undefined) {
                 result = result[k];
             } else {
-                // Key bulunamazsa key'i döndür
-                console.warn(`Translation key not found: ${key}`);
                 return key;
             }
         }
@@ -67,8 +61,41 @@ export const LanguageProvider = ({ children }) => {
         return result;
     }, [language]);
 
+    // Kategori çevirisi
+    const translateCategory = useCallback((category) => {
+        const categoryTranslations = translations[language].categories;
+        return categoryTranslations[category] || category;
+    }, [language]);
+
+    // Proje ismi çevirisi - Türkçe kelimeleri İngilizceye çevirir
+    const translateProjectName = useCallback((name) => {
+        if (language === 'tr') return name; // Türkçe ise olduğu gibi döndür
+
+        const wordTranslations = translations.en.projectWords;
+        let translatedName = name;
+
+        // Kelime kelime çevir (uzun kelimelerden başla)
+        const sortedWords = Object.keys(wordTranslations).sort((a, b) => b.length - a.length);
+
+        for (const turkishWord of sortedWords) {
+            const englishWord = wordTranslations[turkishWord];
+            // Büyük/küçük harf duyarsız değiştirme
+            const regex = new RegExp(turkishWord, 'gi');
+            translatedName = translatedName.replace(regex, englishWord);
+        }
+
+        return translatedName;
+    }, [language]);
+
     return (
-        <LanguageContext.Provider value={{ language, setLanguage: changeLanguage, toggleLanguage, t }}>
+        <LanguageContext.Provider value={{
+            language,
+            setLanguage: changeLanguage,
+            toggleLanguage,
+            t,
+            translateCategory,
+            translateProjectName
+        }}>
             {children}
         </LanguageContext.Provider>
     );

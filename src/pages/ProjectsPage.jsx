@@ -44,7 +44,7 @@ const projects = cloudinaryData.map((item, index) => ({
 }));
 
 const ProjectsPage = () => {
-    const { t } = useLanguage();
+    const { t, translateCategory, translateProjectName } = useLanguage();
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState('Tümü');
     const [currentPage, setCurrentPage] = useState(0);
@@ -196,7 +196,7 @@ const ProjectsPage = () => {
                                     }
                                 }}
                             >
-                                {category === 'Tümü' ? t('projects.all') : category}
+                                {category === 'Tümü' ? t('projects.all') : translateCategory(category)}
                             </button>
                         ))}
                     </div>
@@ -370,7 +370,7 @@ const ProjectsPage = () => {
                                                     marginBottom: '12px',
                                                     width: 'fit-content'
                                                 }}>
-                                                    {project.category}
+                                                    {translateCategory(project.category)}
                                                 </span>
                                                 <h3 style={{
                                                     color: 'white',
@@ -380,7 +380,7 @@ const ProjectsPage = () => {
                                                     textShadow: '0 2px 4px rgba(0,0,0,0.5)',
                                                     textTransform: 'uppercase'
                                                 }}>
-                                                    {project.name}
+                                                    {translateProjectName(project.name)}
                                                 </h3>
                                             </div>
                                         </div>
