@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { features } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 const About = () => {
+    const { t } = useLanguage();
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.2,
@@ -51,17 +53,17 @@ const About = () => {
                     {/* Content Side */}
                     <motion.div variants={itemVariants}>
                         <span className="inline-block px-4 py-1.5 bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300 rounded-full text-sm font-semibold mb-4">
-                            Hakkımızda
+                            {t('about.title')}
                         </span>
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-wide text-teal-900 dark:text-white font-[family-name:var(--font-family-heading)] mb-6">
-                            Güvenin ve Kalitenin
-                            <span className="gradient-text"> Temsilcisi</span>
+                            {t('about.subtitle').split(' ').slice(0, 3).join(' ')}
+                            <span className="gradient-text"> {t('about.subtitle').split(' ').slice(3).join(' ')}</span>
                         </h2>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-                            Modern mimari anlayışı, sürdürülebilir yapı teknolojileri ve müşteri memnuniyetini ön planda
-                            tutan yaklaşımımızla, yaşam alanlarınızı hayallerinizin ötesinde inşa ediyoruz. Her projemizde
-                            kalite, güvenilirlik ve estetik değerleri bir arada sunuyoruz.
-                        </p>
+
+                        <div className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8 space-y-4">
+                            <p>{t('about.paragraph1')}</p>
+                            <p>{t('about.paragraph2')}</p>
+                        </div>
 
                         {/* Features Grid */}
                         <div className="grid grid-cols-2 gap-4 mb-8">
@@ -73,7 +75,12 @@ const About = () => {
                                 >
                                     <span className="text-2xl">{feature.icon}</span>
                                     <div>
-                                        <p className="font-semibold text-teal-900 dark:text-white">{feature.title}</p>
+                                        <p className="font-semibold text-teal-900 dark:text-white">
+                                            {/* Feature başlıkları ve açıklamaları buraya eklenebilir, 
+                                                ancak şu an features dizisi data.js'den geliyor. 
+                                                Gerekirse features için de çeviri eklenebilir. */}
+                                            {feature.title}
+                                        </p>
                                         <p className="text-sm text-gray-500 dark:text-gray-400">{feature.desc}</p>
                                     </div>
                                 </motion.div>
@@ -86,7 +93,7 @@ const About = () => {
                             whileTap={{ scale: 0.97 }}
                             className="inline-flex items-center gap-2 px-6 py-3 bg-teal-900 dark:bg-teal-700 text-white rounded-full font-semibold hover:bg-teal-800 dark:hover:bg-teal-600 transition-colors"
                         >
-                            Hizmetlerimiz
+                            {t('nav.services')}
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
