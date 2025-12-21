@@ -94,44 +94,58 @@ export const services = [
     },
 ];
 
-// Projeler - Projects bölümünde kullanılıyor
-export const projects = [
-    {
-        title: 'Korkmaz Residence',
-        category: 'Konut Projesi',
-        image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        location: 'İstanbul, Kadıköy',
-    },
-    {
-        title: 'Business Plaza',
-        category: 'Ticari Proje',
-        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        location: 'İstanbul, Maslak',
-    },
-    {
-        title: 'Green Valley Evleri',
-        category: 'Villa Projesi',
-        image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        location: 'Antalya, Kemer',
-    },
-    {
-        title: 'Sunset Towers',
-        category: 'Konut Projesi',
-        image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        location: 'İzmir, Karşıyaka',
-    },
-    {
-        title: 'Metro AVM',
-        category: 'Ticari Proje',
-        image: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        location: 'Ankara, Çankaya',
-    },
-    {
-        title: 'Park Residence',
-        category: 'Konut Projesi',
-        image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        location: 'Bursa, Nilüfer',
-    },
+// Projeler - Projects bölümünde kullanılıyor (ESKİ - artık kullanılmıyor)
+// export const projects = [...];
+
+// Referanslar - Cloudinary'den çekilen gerçek projeler
+// Klasör isimleri Cloudinary'deki isimlerle birebir eşleşmeli
+export const referanslar = [
+    { id: 1, name: 'Aslantürk Makine Fabrika Bekçi Kulübesi', folder: 'aslantürk makine fabrika bekçi kulübesi', category: 'Endüstriyel' },
+    { id: 2, name: 'Basket Sahası', folder: 'Basket Sahası', category: 'Spor Tesisleri' },
+    { id: 3, name: 'Beykoz Prefabrik TEMEL 2019', folder: 'Beykoz prefabrik TEMEL 2019', category: 'Prefabrik' },
+    { id: 4, name: 'Beykoz Taksi Durağı Tameli', folder: 'Beykoz taksi durağı tameli', category: 'Ticari' },
+    { id: 5, name: 'Bilişim Vadisi', folder: 'bilişim vadisi', category: 'Endüstriyel' },
+    { id: 6, name: 'Cumaköy Çatı Çalışması', folder: 'cumaköy çatı çalışması', category: 'Çatı Sistemleri' },
+    { id: 7, name: 'Darıca Belediyesi Çeşitli Çalışmalar', folder: 'darıca belediyesi çeşitli çalışmalar', category: 'Kamu' },
+    { id: 8, name: 'Darıca Belediyesi Köprü', folder: 'Darıca Belediyesi Köprü', category: 'Kamu' },
+    { id: 9, name: 'Dilek Hanım Çatı', folder: 'Dilek hanım çatı', category: 'Çatı Sistemleri' },
+    { id: 10, name: 'Dilovası Prabrik Yeri', folder: 'dilovası prabrik yeri', category: 'Prefabrik' },
+    { id: 11, name: 'DKK Tuzla Güçlendirme ve Tadilat', folder: 'dkk tuzla güçlendirme ve tadilat', category: 'Güçlendirme' },
+    { id: 12, name: 'Eren Çatı', folder: 'Eren çatı', category: 'Çatı Sistemleri' },
+    { id: 13, name: 'Fatih Mahallesi Istinat Çalışması 2020', folder: 'Fatih mahallesi Istinat çalışması 2020', category: 'Betonarme' },
+    { id: 14, name: 'Gebze Teknik Üniversitesi Ek Derslik Tadilat ve Çatı İşleri', folder: 'Gebze Teknik Üniversitesi Ek Derslik Tadilat ve Çatı İşleri', category: 'Kamu' },
+    { id: 15, name: 'Gökçe Nefes', folder: 'Gökçe Nefes', category: 'Konut' },
+    { id: 16, name: 'Gökçe Parla 2023', folder: 'Gökçe parla 2023', category: 'Konut' },
+    { id: 17, name: 'Gökçe Vital', folder: 'Gökçe Vital', category: 'Konut' },
+    { id: 18, name: 'Gökçe Yapı Beoiss İş Merkezi 2021', folder: 'Gökçe yapı beoiss iş merkezi 2021', category: 'Ticari' },
+    { id: 19, name: 'GOSB Fabrika Ek Bina 2019', folder: 'gosb fabrika ek bina 2019', category: 'Endüstriyel' },
+    { id: 20, name: 'GÖZDE KONUT 2021', folder: 'GÖZDE KONUT 2021', category: 'Konut' },
+    { id: 21, name: 'Hacıoğulları Küçükyalı Geçici Beton Santrali Betonarme İşleri', folder: 'Hacıoğulları Küçükyalı Geçici Beton Santrali Betonarme İşleri', category: 'Betonarme' },
+    { id: 22, name: 'Hakan Şahin Konut', folder: 'Hakan Şahin Konut', category: 'Konut' },
+    { id: 23, name: 'Hersek Sefine Limanı', folder: 'Hersek sefine limanı', category: 'Endüstriyel' },
+    { id: 24, name: 'Hüseyin Aslantürk KONUT 2022', folder: 'Hüseyin aslantürk KONUT 2022', category: 'Konut' },
+    { id: 25, name: 'Kalıpçı Ustası Takımı', folder: 'Kalıpçı Ustası Takımı', category: 'Betonarme' },
+    { id: 26, name: 'Kantar Yeri', folder: 'kantar yeri', category: 'Endüstriyel' },
+    { id: 27, name: 'KAYRAK TAŞI ÇALIŞMASI 2020', folder: 'KAYRAK TAŞI ÇALIŞMASI 2020', category: 'Betonarme' },
+    { id: 28, name: 'Koray Ustalık Dönemi Çalışması', folder: 'Koray Ustalık Dönemi Çalışması', category: 'Tadilat' },
+    { id: 29, name: 'Marina Bayramoğlu Yat Limanı 2021', folder: 'Marina Bayramoğlu Yat Limanı 2021', category: 'Endüstriyel' },
+    { id: 30, name: 'Mehmet Bey Villa Çevre Düzenleme Bayramoğlu 2022', folder: 'Mehmet Bey Villa Çevre Düzenleme Bayramoğlu 2022', category: 'Konut' },
+    { id: 31, name: 'Molla Fenari Saha Betonu Çalışması', folder: 'Molla Fenari Saha Betonu Çalışması', category: 'Betonarme' },
+    { id: 32, name: 'Muhtarlık Merdiveni', folder: 'Muhtarlık Merdiveni', category: 'Kamu' },
+    { id: 33, name: 'Nenehatun Konut İnşaat', folder: 'Nenehatun Konut İnşaat', category: 'Konut' },
+    { id: 34, name: 'Ömer Atıcı Konut 2021', folder: 'Ömer Atıcı Konut 2021', category: 'Konut' },
+    { id: 35, name: 'Orhan Gazi Çatı ve Tadilat Çalışması 2020', folder: 'Orhan Gazi çatı ve tadilat çalışması 2020', category: 'Çatı Sistemleri' },
+    { id: 36, name: 'OSMAN SAYLI İŞ MERKEZİ BİNASI OSMANGAZİ 2016', folder: 'OSMAN SAYLI İŞ MERKEZİ BİNASI OSMANGAZİ 2016', category: 'Ticari' },
+    { id: 37, name: 'Saat Kulesi Yarı Konut', folder: 'Saat Kulesi Yarı Konut', category: 'Konut' },
+    { id: 38, name: 'Şehit Edip Zengin Mezarlık Çalışması 2020', folder: 'şehit edip zengin mezarlık çalışması 2020', category: 'Kamu' },
+    { id: 39, name: 'Şule Hanım Çatı BAYRAMOĞLU 2021', folder: 'Şule hanım çatı BAYRAMOĞLU 2021', category: 'Çatı Sistemleri' },
+    { id: 40, name: 'Teras Kapama GEBZE 2022', folder: 'Teras kapama GEBZE 2022', category: 'Çatı Sistemleri' },
+    { id: 41, name: 'Tuzla Belediyesi Çeşitli Alanlarda Saha Betonu ve Istinat Çalışmaları 2020', folder: 'Tuzla belediyesi çeşitli alanlarda saha betonu ve Istinat çalışmaları 2020', category: 'Kamu' },
+    { id: 42, name: 'Villa Bayramoğlu İlave Ek 2022', folder: 'villa Bayramoğlu ilave ek 2022', category: 'Konut' },
+    { id: 43, name: 'Villa Tadilat', folder: 'Villa Tadilat', category: 'Tadilat' },
+    { id: 44, name: 'YENİ DARICA MEZARLIĞI KAPI GİRİŞİ 2020', folder: 'YENİ DARICA MEZARLIĞI KAPI GİRİŞİ 2020', category: 'Kamu' },
+    { id: 45, name: 'Yusuf Aka Çatı Katı 2021', folder: 'Yusuf aka çatı katı 2021', category: 'Çatı Sistemleri' },
+    { id: 46, name: 'Yusuf Destek 2022', folder: 'Yusuf Destek 2022', category: 'Konut' },
 ];
 
 // Hızlı linkler - Footer'da kullanılıyor
