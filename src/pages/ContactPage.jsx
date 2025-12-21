@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { contactInfo } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = 'service_ch5rjbo';
@@ -39,6 +40,7 @@ const formatPhoneNumber = (value) => {
 };
 
 const ContactPage = () => {
+    const { t } = useLanguage();
     const [formData, setFormData] = useState({
         ad_soyad: '',
         telefon: '',
@@ -201,7 +203,7 @@ const ContactPage = () => {
                                     <div>
                                         <h3 className="font-semibold text-white mb-1">Adres</h3>
                                         <p className="text-gray-400">
-                                            {contactInfo.address}
+                                            {t('contact.fullAddress')}
                                         </p>
                                     </div>
                                 </div>

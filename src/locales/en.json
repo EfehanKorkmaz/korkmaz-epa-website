@@ -140,7 +140,9 @@
         "callUs": "Call Us",
         "emailUs": "Email Us",
         "formTitle": "Send Us a Message",
-        "formSubtitle": "We will get back to you as soon as possible."
+        "formSubtitle": "We will get back to you as soon as possible.",
+        "companyName": "KORKMAZ EPA CONSTRUCTION",
+        "fullAddress": "Osmangazi District, Makbul St. No: 3 / 3 Darica / KOCAELI"
     },
     "footer": {
         "cta": "Ready for Your Project!",

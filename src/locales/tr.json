@@ -109,7 +109,9 @@
         "callUs": "Bizi Arayın",
         "emailUs": "E-posta Gönderin",
         "formTitle": "Bize Mesaj Gönderin",
-        "formSubtitle": "En kısa sürede size dönüş yapacağız."
+        "formSubtitle": "En kısa sürede size dönüş yapacağız.",
+        "companyName": "KORKMAZ EPA İNŞAAT",
+        "fullAddress": "Osmangazi Mah. Makbul Sk. No: 3 / 3 Darıca KOCAELİ"
     },
     "footer": {
         "cta": "Projeniz İçin Hazırız!",
