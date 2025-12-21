@@ -77,7 +77,8 @@ const Footer = () => {
                                 gap: '12px',
                                 boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
                                 transition: 'all 0.3s ease',
-                                textDecoration: 'none'
+                                textDecoration: 'none',
+                                cursor: 'pointer'
                             }}
                             onMouseOver={(e) => {
                                 e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)';
