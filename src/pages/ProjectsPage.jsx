@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectModal from '../components/ProjectModal';
 import cloudinaryData from '../cloudinaryData.json';
@@ -35,6 +35,14 @@ const projects = cloudinaryData.map((item, index) => ({
     category: getCategory(item.folder)
 }));
 
+// Image preloader helper
+const preloadImages = (imageUrls) => {
+    imageUrls.forEach(url => {
+        const img = new Image();
+        img.src = url;
+    });
+};
+
 const ProjectsPage = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState('Tümü');
@@ -67,6 +75,22 @@ const ProjectsPage = () => {
         return filteredProjects.slice(start, start + PROJECTS_PER_PAGE);
     }, [filteredProjects, currentPage]);
 
+    // Sonraki ve önceki sayfa projelerini preload et
+    useEffect(() => {
+        // Sonraki sayfa
+        if (currentPage < totalPages - 1) {
+            const nextStart = (currentPage + 1) * PROJECTS_PER_PAGE;
+            const nextProjects = filteredProjects.slice(nextStart, nextStart + PROJECTS_PER_PAGE);
+            preloadImages(nextProjects.map(p => p.coverImage));
+        }
+        // Önceki sayfa
+        if (currentPage > 0) {
+            const prevStart = (currentPage - 1) * PROJECTS_PER_PAGE;
+            const prevProjects = filteredProjects.slice(prevStart, prevStart + PROJECTS_PER_PAGE);
+            preloadImages(prevProjects.map(p => p.coverImage));
+        }
+    }, [currentPage, filteredProjects, totalPages]);
+
     // Filtre değişince sayfa sıfırlansın
     const handleFilterChange = (newFilter) => {
         setFilter(newFilter);
@@ -89,10 +113,10 @@ const ProjectsPage = () => {
         }
     };
 
-    // Slide animasyonu için variants
+    // Hızlı slide animasyonu - spring yerine tween kullan
     const slideVariants = {
         enter: (direction) => ({
-            x: direction > 0 ? 1000 : -1000,
+            x: direction > 0 ? 300 : -300,
             opacity: 0
         }),
         center: {
@@ -100,13 +124,13 @@ const ProjectsPage = () => {
             opacity: 1
         },
         exit: (direction) => ({
-            x: direction < 0 ? 1000 : -1000,
+            x: direction < 0 ? 300 : -300,
             opacity: 0
         })
     };
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#111827', transition: 'colors 300ms' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: '#111827' }}>
             {/* Hero Section */}
             <section
                 style={{
@@ -116,10 +140,7 @@ const ProjectsPage = () => {
                 }}
             >
                 <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px', textAlign: 'center' }}>
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
+                    <h1
                         style={{
                             fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                             fontWeight: 'bold',
@@ -130,11 +151,8 @@ const ProjectsPage = () => {
                         }}
                     >
                         Referanslarımız ve Tecrübelerimiz
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
+                    </h1>
+                    <p
                         style={{
                             color: '#9ca3af',
                             fontSize: '1.125rem',
@@ -144,17 +162,14 @@ const ProjectsPage = () => {
                         }}
                     >
                         Yılların birikimi ve deneyimiyle tamamladığımız projelerimiz
-                    </motion.p>
+                    </p>
                 </div>
             </section>
 
-            {/* Filter Buttons - Centered with more bottom margin */}
+            {/* Filter Buttons */}
             <section style={{ padding: '32px 0 48px 0', backgroundColor: '#111827' }}>
                 <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 16px' }}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
+                    <div
                         style={{
                             display: 'flex',
                             flexWrap: 'wrap',
@@ -171,7 +186,7 @@ const ProjectsPage = () => {
                                     borderRadius: '12px',
                                     fontSize: '14px',
                                     fontWeight: '600',
-                                    transition: 'all 300ms',
+                                    transition: 'all 200ms',
                                     minWidth: '120px',
                                     cursor: 'pointer',
                                     border: filter === category ? 'none' : '1px solid #374151',
@@ -197,14 +212,14 @@ const ProjectsPage = () => {
                                 {category}
                             </button>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
-            {/* Projects Grid with Navigation - Centered */}
+            {/* Projects Grid with Navigation */}
             <section style={{ padding: '48px 0 96px 0' }}>
                 <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 24px' }}>
-                    {/* Navigation Container - Centered */}
+                    {/* Navigation Container */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
                         {/* Sol Ok */}
                         <button
@@ -218,7 +233,7 @@ const ProjectsPage = () => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                transition: 'all 300ms',
+                                transition: 'all 150ms',
                                 border: 'none',
                                 cursor: currentPage > 0 ? 'pointer' : 'not-allowed',
                                 backgroundColor: currentPage > 0 ? '#1f2937' : 'rgba(31, 41, 55, 0.3)',
@@ -254,8 +269,8 @@ const ProjectsPage = () => {
                                     animate="center"
                                     exit="exit"
                                     transition={{
-                                        x: { type: "spring", stiffness: 300, damping: 30 },
-                                        opacity: { duration: 0.2 }
+                                        duration: 0.2,
+                                        ease: "easeOut"
                                     }}
                                     style={{
                                         display: 'grid',
@@ -263,15 +278,11 @@ const ProjectsPage = () => {
                                         gap: '32px'
                                     }}
                                 >
-                                    {currentProjects.map((project, index) => (
-                                        <motion.div
+                                    {currentProjects.map((project) => (
+                                        <div
                                             key={project.id}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: index * 0.08 }}
                                             onClick={() => setSelectedProject(project)}
                                             style={{ cursor: 'pointer' }}
-                                            className="group"
                                         >
                                             <div style={{
                                                 position: 'relative',
@@ -281,7 +292,7 @@ const ProjectsPage = () => {
                                                 aspectRatio: '16/10',
                                                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
                                             }}>
-                                                {/* Image */}
+                                                {/* Image - No lazy loading for carousel */}
                                                 <img
                                                     src={project.coverImage}
                                                     alt={project.name}
@@ -289,14 +300,15 @@ const ProjectsPage = () => {
                                                         width: '100%',
                                                         height: '100%',
                                                         objectFit: 'cover',
-                                                        transition: 'transform 500ms'
+                                                        transition: 'transform 300ms'
                                                     }}
                                                     onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
                                                     onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
                                                     onError={(e) => {
                                                         e.target.src = 'https://res.cloudinary.com/duwqt0u27/image/upload/f_auto,q_auto,w_800,h_500,c_fill,e_blur:200/sample';
                                                     }}
-                                                    loading="lazy"
+                                                    loading="eager"
+                                                    decoding="async"
                                                 />
 
                                                 {/* Overlay */}
@@ -304,8 +316,7 @@ const ProjectsPage = () => {
                                                     position: 'absolute',
                                                     inset: 0,
                                                     background: 'linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3), transparent)',
-                                                    opacity: 0.7,
-                                                    transition: 'opacity 300ms'
+                                                    opacity: 0.7
                                                 }} />
 
                                                 {/* Content */}
@@ -341,7 +352,7 @@ const ProjectsPage = () => {
                                                     </h3>
                                                 </div>
                                             </div>
-                                        </motion.div>
+                                        </div>
                                     ))}
                                 </motion.div>
                             </AnimatePresence>
@@ -359,7 +370,7 @@ const ProjectsPage = () => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                transition: 'all 300ms',
+                                transition: 'all 150ms',
                                 border: 'none',
                                 cursor: currentPage < totalPages - 1 ? 'pointer' : 'not-allowed',
                                 backgroundColor: currentPage < totalPages - 1 ? '#1f2937' : 'rgba(31, 41, 55, 0.3)',
@@ -385,13 +396,8 @@ const ProjectsPage = () => {
                         </button>
                     </div>
 
-                    {/* Sayfa Bilgisi ve Noktalar - Centered */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        style={{ textAlign: 'center', marginTop: '48px' }}
-                    >
+                    {/* Sayfa Bilgisi ve Noktalar */}
+                    <div style={{ textAlign: 'center', marginTop: '48px' }}>
                         {/* Sayfa Noktaları */}
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '16px' }}>
                             {Array.from({ length: totalPages }).map((_, idx) => (
@@ -405,7 +411,7 @@ const ProjectsPage = () => {
                                         height: '12px',
                                         width: idx === currentPage ? '40px' : '12px',
                                         borderRadius: '50px',
-                                        transition: 'all 300ms',
+                                        transition: 'all 150ms',
                                         backgroundColor: idx === currentPage ? '#14b8a6' : '#4b5563',
                                         border: 'none',
                                         cursor: 'pointer'
@@ -429,7 +435,7 @@ const ProjectsPage = () => {
                             <span style={{ margin: '0 12px', color: '#374151' }}>•</span>
                             Toplam <span style={{ color: '#2dd4bf', fontWeight: 'bold' }}>{filteredProjects.length}</span> proje
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
