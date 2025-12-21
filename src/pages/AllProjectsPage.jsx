@@ -20,6 +20,7 @@ const categoryOverrides = {
     'Gökçe Vital': 'Konut',
     'Gökçe parla 2023': 'Konut',
     'Gökçe yapı beosis iş merkezi 2021': 'Ticari',
+    'Beykoz taksi durağı temeli': 'Diğer',
 };
 
 // Kategori eşleştirme fonksiyonu
