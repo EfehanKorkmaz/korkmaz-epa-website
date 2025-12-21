@@ -66,10 +66,16 @@ export const LanguageProvider = ({ children }) => {
     const translateProjectName = useCallback((name) => {
         if (language === 'tr') return name;
 
-        let result = name.toLowerCase();
+        // 1. Önce stringi temizle ve hazırla
+        // Türkçe karakterler için özel lowercase işlemi (İ -> i)
+        let result = name.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase();
 
-        // 1. Hanım/Bey kalıplarını işle: "[İsim] Hanım" → "Ms. [İsim]'s"
-        // Bu en önce çalışmalı ki isimler korunsun
+        // Özel durumlar ve Typo düzeltmeleri
+        result = result.replace(/bayramoğluu/gi, 'bayramoğlu');
+        // "Lima" kelimesi varsa "Limanı" yap, ama zaten "Limanı" ise dokunma (regex boundary \b ve lookahead important)
+        result = result.replace(/\blima\b(?!n)/gi, 'limanı');
+
+        // 2. Hanım/Bey kalıplarını işle: "[İsim] Hanım" → "Ms. [İsim]'s"
         result = result.replace(/(\S+)\s+hanım/gi, (match, name) => {
             const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
             return `Ms. ${capitalizedName}'s`;
@@ -79,58 +85,78 @@ export const LanguageProvider = ({ children }) => {
             return `Mr. ${capitalizedName}'s`;
         });
 
-        // 2. Bağlamsal çeviriler (compound terms) - uzun ifadelerden kısalara
+        // 3. Bağlamsal çeviriler (compound terms)
         const contextualReplacements = [
             // "ve" bağlacı
             [/\s+ve\s+/gi, ' and '],
 
-            // Çalışma/çalışması kalıpları
-            [/çeşitli\s+çalışmalar(ı)?/gi, 'Various Works'],
-            [/çalışması/gi, 'Work'],
-            [/çalışmaları/gi, 'Works'],
-            [/çalışmalar/gi, 'Works'],
+            // En uzun ifadeler (Longest Match First)
+            [/gebze\s+teknik\s+üniversitesi/gi, 'Gebze Technical University'],
+            [/kalıpçı\s+ustası\s+takımı/gi, 'Formwork Master Team'],
+            [/osman\s+sayılı\s+iş\s+merkezi\s+binası/gi, 'Osman Sayılı Business Center Building'],
+            [/nenehatun\s+residence\s+inşaat(ı)?/gi, 'Nenehatun Residence Construction'],
 
-            // Prefabrik kombinasyonları
+            // Orta uzunluktaki ifadeler
+            [/iş\s+merkezi\s+bina(sı)?/gi, 'Business Center Building'],
+            [/muhtarlık\s+merdiven(i)?/gi, 'Headman\'s Office Stairs'],
+            [/muhtarlık\s+merdiveni/gi, 'Headman\'s Office Stairs'],
+            [/muhtarlık/gi, 'Headman\'s Office'],
+
+            [/ek\s+derslik/gi, 'Additional Classroom'],
+            [/kantar\s+yeri/gi, 'Weighbridge Site'],
+            [/kayrak\s+taşı/gi, 'Slate Stone'],
+            [/ustalık\s+dönemi/gi, 'Mastery Period'],
+            [/geçici/gi, 'Temporary'],
+
+            // "İşleri" için daha kapsamlı regex
+            [/işleri/gi, 'Works'],
+            [/isleri/gi, 'Works'],
+
+            [/istinat\s+work/gi, 'Retaining Wall'],
+            [/istinat\s+duvarı/gi, 'Retaining Wall'],
+            [/istinat/gi, 'Retaining Wall'],
+
             [/prefabrik\s+temel(i)?/gi, 'Prefabricated Building Foundation'],
             [/prefabrik\s+yapı(sı)?/gi, 'Prefabricated Building'],
             [/prefabrik\s+yer(i)?/gi, 'Prefabricated Site'],
-            [/prabrik\s+yer(i)?/gi, 'Prefabricated Site'], // typo versiyonu
-            [/prefabrik/gi, 'Prefabricated Building'],
-            [/prabrik/gi, 'Prefabricated'], // typo versiyonu
+            [/prabrik\s+yer(i)?/gi, 'Prefabricated Site'],
+            [/prabrik/gi, 'Prefabricated'],
 
-            // Belediye + suffix
+            [/belediye(si)?\s+çeşitli\s+çalışmalar(ı)?/gi, 'Municipality Various Works'],
             [/belediye(si)?\s+köprü/gi, 'Municipality Bridge'],
-            [/belediye(si)?/gi, 'Municipality'],
 
-            // Çatı kombinasyonları
-            [/çatı\s+katı/gi, 'Attic'],
-            [/çatı\s+tadilat(ı)?/gi, 'Roof Renovation'],
-            [/çatı/gi, 'Roof'],
-
-            // Konut kombinasyonları
-            [/konut\s+inşaatı/gi, 'Residential Construction'],
-            [/konut/gi, 'Residence'],
-
-            // Diğer yaygın terimler
             [/taksi\s+durağı\s+temel(i)?/gi, 'Taxi Stand Foundation'],
             [/taksi\s+durağı/gi, 'Taxi Stand'],
+
             [/bekçi\s+kulübesi/gi, 'Guard House'],
             [/basket\s+sahası/gi, 'Basketball Court'],
             [/bilişim\s+vadisi/gi, 'Technology Valley'],
             [/teras\s+kapama/gi, 'Terrace Enclosure'],
+
             [/yat\s+limanı/gi, 'Marina'],
+            [/sefine\s+liman(ı)?/gi, 'Sefine Port'],
+            [/liman(ı)?/gi, 'Port'],
+
             [/beton\s+santral(i)?/gi, 'Concrete Plant'],
+            [/betonarme/gi, 'Reinforced Concrete'],
             [/saha\s+betonu/gi, 'Field Concrete'],
             [/çevre\s+düzenleme/gi, 'Landscaping'],
+
             [/mezarlık\s+merdiven/gi, 'Cemetery Stairs'],
             [/mezarlığı/gi, 'Cemetery'],
             [/mezarlık/gi, 'Cemetery'],
+
             [/giriş\s+kapısı/gi, 'Entrance Gate'],
-            [/istinat\s+duvarı/gi, 'Retaining Wall'],
             [/ek\s+bina/gi, 'Additional Building'],
             [/iş\s+merkezi/gi, 'Business Center'],
-            [/taşı/gi, 'Stone'],
-            [/taş/gi, 'Stone'],
+            [/mahallesi/gi, 'Neighborhood'],
+            [/mahalle/gi, 'Neighborhood'],
+
+            // Çalışma kelimeleri
+            [/çeşitli\s+çalışmalar(ı)?/gi, 'Various Works'],
+            [/çalışması/gi, 'Work'],
+            [/çalışmaları/gi, 'Works'],
+            [/çalışmalar/gi, 'Works'],
 
             // Tekil kelimeler
             [/fabrika/gi, 'Factory'],
@@ -143,19 +169,33 @@ export const LanguageProvider = ({ children }) => {
             [/ticari/gi, 'Commercial'],
             [/makine/gi, 'Machine'],
             [/yapı(sı)?/gi, 'Building'],
-            [/kat(ı)?/gi, 'Floor']
+            [/kat(ı)?/gi, 'Floor'],
+            [/belediye(si)?/gi, 'Municipality'],
+            [/çatı/gi, 'Roof'],
+            [/konut/gi, 'Residence'],
+            [/taşı/gi, 'Stone'],
+            [/taş/gi, 'Stone']
         ];
 
         for (const [pattern, replacement] of contextualReplacements) {
             result = result.replace(pattern, replacement);
         }
 
-        // 3. Kelime başlarını büyük harf yap (Title Case)
+        // 4. Kelime başlarını büyük harf yap (Title Case)
         result = result.replace(/\b\w/g, char => char.toUpperCase());
 
-        // 4. "Ms." ve "Mr." düzeltmeleri
+        // 5. "Ms.", "Mr.", "And" düzeltmeleri
         result = result.replace(/\bMs\./g, 'Ms.');
         result = result.replace(/\bMr\./g, 'Mr.');
+        result = result.replace(/\bAnd\b/g, 'and');
+
+        // 6. Son temizlikler
+        result = result.replace(/Retaining Wall Work/gi, 'Retaining Wall');
+
+        // Marina tekrarı temizliği (Marina Bayramoğlu Marina -> Bayramoğlu Marina)
+        if (result.match(/Marina.*Marina/i)) {
+            result = result.replace(/^Marina\s+/i, '');
+        }
 
         return result;
     }, [language]);
