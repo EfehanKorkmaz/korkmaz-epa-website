@@ -17,7 +17,7 @@ const getOptimizedUrl = (url, width = 600) => {
 // Kategori düzeltmeleri haritası (folder -> category)
 const categoryOverrides = {
     'Gökçe Nefes': 'Konut',
-    'Gökçe Vital': 'Konut',
+    'Gökçe Vital': 'Ticari',
     'Gökçe parla 2023': 'Konut',
     'Gökçe yapı beosis iş merkezi 2021': 'Ticari',
     'Beykoz taksi durağı temeli': 'Diğer',
