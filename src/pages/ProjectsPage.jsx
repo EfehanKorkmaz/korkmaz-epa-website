@@ -62,13 +62,13 @@ const ProjectsPage = () => {
     }, []);
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#111827' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: '#0a1929' }}>
             {/* Hero Section - Title Only */}
             <section
                 style={{
-                    paddingTop: '140px',
+                    paddingTop: '160px',
                     paddingBottom: '40px',
-                    background: 'linear-gradient(to bottom, #1f2937, #111827)'
+                    background: 'linear-gradient(to bottom, #0f172a, #0a1929)'
                 }}
             >
                 <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px', textAlign: 'center' }}>
@@ -78,7 +78,8 @@ const ProjectsPage = () => {
                             fontWeight: 'bold',
                             letterSpacing: '0.025em',
                             color: 'white',
-                            marginBottom: '16px'
+                            marginBottom: '16px',
+                            fontFamily: 'var(--font-family-heading)'
                         }}
                     >
                         {t('projects.title')}
@@ -98,8 +99,10 @@ const ProjectsPage = () => {
                             fontWeight: 'bold',
                             color: 'white',
                             marginBottom: '24px',
-                            textAlign: 'center'
-                        }}>
+                            textAlign: 'center',
+                            fontFamily: 'var(--font-family-heading)'
+                        }}
+                        >
                             {t('projects.ongoingProject')}
                         </h2>
 
@@ -113,9 +116,10 @@ const ProjectsPage = () => {
                                 position: 'relative',
                                 overflow: 'hidden',
                                 borderRadius: '20px',
-                                backgroundColor: '#1f2937',
+                                backgroundColor: '#1e293b',
                                 aspectRatio: isMobile ? '16/10' : '21/9',
-                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                                border: '1px solid rgba(255, 255, 255, 0.1)'
                             }}>
                                 <img
                                     src={getOptimizedUrl(featuredProject.coverImage, 1200)}
@@ -132,7 +136,7 @@ const ProjectsPage = () => {
                                 <div style={{
                                     position: 'absolute',
                                     inset: 0,
-                                    background: 'linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2), transparent)',
+                                    background: 'linear-gradient(to top, rgba(10, 25, 41, 0.9), rgba(10, 25, 41, 0.2), transparent)',
                                     opacity: 0.8
                                 }} />
 
@@ -152,18 +156,20 @@ const ProjectsPage = () => {
                                         alignItems: 'center',
                                         gap: '8px',
                                         padding: '8px 20px',
-                                        backgroundColor: '#f59e0b',
-                                        color: 'white',
+                                        backgroundColor: '#d4af37',
+                                        color: '#0a1929',
                                         fontSize: '14px',
-                                        fontWeight: '700',
+                                        fontWeight: '800',
                                         borderRadius: '50px',
-                                        marginBottom: '16px'
+                                        marginBottom: '16px',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.05em'
                                     }}>
                                         <span style={{
                                             width: '8px',
                                             height: '8px',
                                             borderRadius: '50%',
-                                            backgroundColor: 'white',
+                                            backgroundColor: '#0a1929',
                                             animation: 'pulse 2s infinite'
                                         }}></span>
                                         {t('projects.ongoing')}
@@ -174,7 +180,8 @@ const ProjectsPage = () => {
                                         fontSize: isMobile ? '1.75rem' : '2.5rem',
                                         textShadow: '0 4px 8px rgba(0,0,0,0.5)',
                                         textTransform: 'uppercase',
-                                        letterSpacing: '0.05em'
+                                        letterSpacing: '0.05em',
+                                        fontFamily: 'var(--font-family-heading)'
                                     }}>
                                         {translateProjectName(featuredProject.name)}
                                     </h3>
@@ -193,7 +200,8 @@ const ProjectsPage = () => {
                         fontWeight: 'bold',
                         color: 'white',
                         marginBottom: '32px',
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        fontFamily: 'var(--font-family-heading)'
                     }}>
                         {t('projects.mainProjects')}
                     </h2>
@@ -221,9 +229,10 @@ const ProjectsPage = () => {
                                     position: 'relative',
                                     overflow: 'hidden',
                                     borderRadius: '16px',
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#1e293b',
                                     aspectRatio: '16/10',
-                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                                    border: '1px solid rgba(255, 255, 255, 0.05)'
                                 }}>
                                     <img
                                         src={project.coverImage}
@@ -241,7 +250,7 @@ const ProjectsPage = () => {
                                     <div style={{
                                         position: 'absolute',
                                         inset: 0,
-                                        background: 'linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3), transparent)',
+                                        background: 'linear-gradient(to top, rgba(10, 25, 41, 0.9), rgba(10, 25, 41, 0.3), transparent)',
                                         opacity: 0.7
                                     }} />
 
@@ -259,7 +268,8 @@ const ProjectsPage = () => {
                                             fontWeight: 'bold',
                                             fontSize: '1.5rem',
                                             textShadow: '0 2px 4px rgba(0,0,0,0.5)',
-                                            textTransform: 'uppercase'
+                                            textTransform: 'uppercase',
+                                            fontFamily: 'var(--font-family-heading)'
                                         }}>
                                             {translateProjectName(project.name)}
                                         </h3>
@@ -281,22 +291,24 @@ const ProjectsPage = () => {
                             alignItems: 'center',
                             gap: '12px',
                             padding: '18px 48px',
-                            background: 'linear-gradient(to right, #14b8a6, #0d9488)',
-                            color: 'white',
+                            background: 'linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%)',
+                            color: '#0a1929',
                             fontSize: '1.125rem',
-                            fontWeight: '700',
+                            fontWeight: '800',
                             borderRadius: '16px',
                             textDecoration: 'none',
-                            boxShadow: '0 10px 40px -10px rgba(20, 184, 166, 0.5)',
-                            transition: 'all 0.3s ease'
+                            boxShadow: '0 10px 40px -10px rgba(212, 175, 55, 0.4)',
+                            transition: 'all 0.3s ease',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em'
                         }}
                         onMouseOver={(e) => {
                             e.currentTarget.style.transform = 'translateY(-3px)';
-                            e.currentTarget.style.boxShadow = '0 20px 50px -10px rgba(20, 184, 166, 0.6)';
+                            e.currentTarget.style.boxShadow = '0 20px 50px -10px rgba(212, 175, 55, 0.5)';
                         }}
                         onMouseOut={(e) => {
                             e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = '0 10px 40px -10px rgba(20, 184, 166, 0.5)';
+                            e.currentTarget.style.boxShadow = '0 10px 40px -10px rgba(212, 175, 55, 0.4)';
                         }}
                     >
                         {t('projects.otherProjects')}

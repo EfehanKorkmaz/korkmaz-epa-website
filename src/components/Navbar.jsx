@@ -10,7 +10,6 @@ const Navbar = () => {
     const location = useLocation();
     const { language, toggleLanguage, t } = useLanguage();
 
-    // Dinamik menü öğeleri - çevirilerle
     const menuItems = [
         { name: t('nav.home'), path: '/' },
         { name: t('nav.about'), path: '/about' },
@@ -36,16 +35,16 @@ const Navbar = () => {
 
     const getNavbarClass = () => {
         if (showTransparent) {
-            return 'bg-black/30 backdrop-blur-md py-4';
+            return 'bg-transparent py-6';
         }
-        return 'bg-gray-900/95 backdrop-blur-lg shadow-lg py-3';
+        return 'bg-[#0a1929]/95 backdrop-blur-lg shadow-xl py-4 border-b border-white/5';
     };
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarClass()}`}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${getNavbarClass()}`}
         >
-            <div className="max-w-7xl mx-auto px-8">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex justify-between items-center">
                     {/* LEFT: Logo */}
                     <div className="flex-shrink-0">
@@ -53,76 +52,64 @@ const Navbar = () => {
                             <img
                                 src={logoBeyaz}
                                 alt="Korkmaz EPA İnşaat"
-                                className="h-12 w-auto transition-all duration-300"
+                                className="h-10 lg:h-12 w-auto transition-transform duration-300 hover:scale-105"
                             />
                         </Link>
                     </div>
 
                     {/* CENTER: Navigation Links - Desktop Only */}
                     <div className="hidden lg:flex items-center absolute left-1/2 transform -translate-x-1/2">
-                        <div className="flex gap-10">
+                        <div className="flex gap-8 xl:gap-12">
                             {menuItems.map((item) => (
                                 <Link
                                     key={item.path}
                                     to={item.path}
-                                    className={`text-base font-medium transition-all duration-300 ${location.pathname === item.path
-                                        ? 'text-teal-400'
-                                        : 'text-gray-300 hover:text-teal-300'
-                                        }`}
+                                    className="relative group py-2"
                                 >
-                                    {item.name}
+                                    <span className={`text-[0.95rem] tracking-wide font-medium transition-colors duration-300 ${location.pathname === item.path
+                                            ? 'text-[#d4af37]'
+                                            : 'text-gray-300 group-hover:text-white'
+                                        }`}>
+                                        {item.name}
+                                    </span>
+                                    {/* Elegant Underline Effect */}
+                                    <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#d4af37] transform origin-left transition-transform duration-300 ${location.pathname === item.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                                        }`} />
                                 </Link>
                             ))}
                         </div>
                     </div>
 
                     {/* RIGHT: Language Toggle + CTA Button */}
-                    <div className="flex items-center gap-3">
-                        {/* Language Toggle Button */}
+                    <div className="flex items-center gap-4">
+                        {/* Language Toggle */}
                         <button
                             onClick={toggleLanguage}
-                            className="flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300"
+                            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 hover:border-[#d4af37]/50 hover:bg-[#d4af37]/10 transition-all duration-300"
                             title={language === 'tr' ? 'Switch to English' : 'Türkçe\'ye geç'}
                         >
-                            <span className="text-lg">{language === 'tr' ? '🇹🇷' : '🇺🇸'}</span>
-                            <span className="text-sm font-medium text-white hidden sm:inline">
+                            <span className="text-xl filter drop-shadow-md">{language === 'tr' ? '🇹🇷' : '🇺🇸'}</span>
+                            <span className="text-xs font-semibold text-gray-300 tracking-wider">
                                 {language === 'tr' ? 'TR' : 'EN'}
                             </span>
                         </button>
 
                         <Link to="/contact" className="hidden lg:block">
-                            <motion.button
-                                whileHover={{ scale: 1.08, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                style={{
-                                    background: 'linear-gradient(135deg, #0d9488 0%, #14b8a6 25%, #0f766e 50%, #2dd4bf 75%, #0d9488 100%)',
-                                    backgroundSize: '400% 400%',
-                                    animation: 'gradientShift 6s ease infinite',
-                                    padding: '12px 28px',
-                                    fontSize: '0.95rem',
-                                    fontWeight: '600',
-                                    color: 'white',
-                                    borderRadius: '50px',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    boxShadow: '0 8px 25px rgba(13, 148, 136, 0.35)',
-                                    letterSpacing: '0.02em'
-                                }}
-                            >
+                            <button className="btn-premium px-8 py-3 rounded-full text-sm font-bold tracking-widest uppercase">
                                 {t('nav.getQuote')}
-                            </motion.button>
+                            </button>
                         </Link>
 
                         {/* Mobile Menu Button */}
                         <button
-                            className="lg:hidden relative w-10 h-10 flex items-center justify-center"
+                            className="lg:hidden relative w-10 h-10 flex items-center justify-center text-white"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                             aria-label="Menü"
                         >
-                            <div className="flex flex-col justify-center items-center w-6 h-5">
-                                <span className={`block w-6 h-0.5 rounded-full bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-                                <span className={`block w-6 h-0.5 rounded-full bg-white my-1.5 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0 scale-0' : ''}`} />
-                                <span className={`block w-6 h-0.5 rounded-full bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                            <div className="flex flex-col justify-center items-center w-6 gap-1.5">
+                                <span className={`block w-6 h-[2px] bg-[#d4af37] transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                                <span className={`block w-4 h-[2px] bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
+                                <span className={`block w-6 h-[2px] bg-[#d4af37] transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
                             </div>
                         </button>
                     </div>
@@ -133,34 +120,30 @@ const Navbar = () => {
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -10, height: 0 }}
-                        animate={{ opacity: 1, y: 0, height: 'auto' }}
-                        exit={{ opacity: 0, y: -10, height: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="lg:hidden bg-gray-900 mt-2 mx-4 rounded-2xl overflow-hidden shadow-2xl border border-gray-800"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="lg:hidden bg-[#0a1929] border-t border-white/10 overflow-hidden"
                     >
-                        <div className="p-4">
-                            <ul className="space-y-1">
-                                {menuItems.map((item) => (
-                                    <li key={item.path}>
-                                        <Link
-                                            to={item.path}
-                                            className={`block py-3 px-4 rounded-xl font-medium text-base transition-colors ${location.pathname === item.path
-                                                ? 'bg-teal-900/30 text-teal-400'
-                                                : 'text-gray-300 hover:bg-gray-800'
-                                                }`}
-                                        >
-                                            {item.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                            <div className="mt-4 pt-4 border-t border-gray-800">
+                        <div className="px-6 py-8 space-y-2">
+                            {menuItems.map((item) => (
                                 <Link
-                                    to="/contact"
-                                    className="block py-3 px-4 bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-xl text-center transition-colors"
+                                    key={item.path}
+                                    to={item.path}
+                                    className={`block py-3 text-lg font-heading tracking-wide border-l-2 pl-4 transition-all ${location.pathname === item.path
+                                            ? 'border-[#d4af37] text-[#d4af37] bg-white/5'
+                                            : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
+                                        }`}
                                 >
-                                    {t('nav.getQuote')}
+                                    {item.name}
+                                </Link>
+                            ))}
+                            <div className="pt-6 mt-6 border-t border-white/10">
+                                <Link to="/contact">
+                                    <button className="w-full btn-premium py-4 rounded-xl font-bold uppercase tracking-widest">
+                                        {t('nav.getQuote')}
+                                    </button>
                                 </Link>
                             </div>
                         </div>

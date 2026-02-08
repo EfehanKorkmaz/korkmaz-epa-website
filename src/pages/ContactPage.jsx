@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
 import { contactInfo } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
-// EmailJS Configuration
-const EMAILJS_SERVICE_ID = 'service_ch5rjbo';
-const EMAILJS_TEMPLATE_ID = 'template_xwcwc0v';
-const EMAILJS_PUBLIC_KEY = 'k1P9R4GXT-9wyac4L';
+// Web3Forms Configuration
+const WEB3FORMS_ACCESS_KEY = '7203c09f-8103-45cc-94a6-d8e3196d6e00';
+
 
 // Popular country codes with flag images from CDN
 const countryCodes = [
@@ -70,28 +68,44 @@ const ContactPage = () => {
         setSubmitStatus(null);
 
         try {
-            // Combine country code with phone number for email
-            const dataToSend = {
-                ...formData,
-                telefon: `${countryCode} ${formData.telefon}`
+            // Prepare form data for Web3Forms
+            const formDataToSend = {
+                access_key: WEB3FORMS_ACCESS_KEY,
+                subject: `Korkmaz EPA İletişim: ${formData.konu}`,
+                from_name: formData.ad_soyad,
+                name: formData.ad_soyad,
+                email: formData.email,
+                phone: `${countryCode} ${formData.telefon}`,
+                message: formData.mesaj,
+                konu: formData.konu
             };
-            await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                EMAILJS_TEMPLATE_ID,
-                dataToSend,
-                EMAILJS_PUBLIC_KEY
-            );
-            setSubmitStatus('success');
-            setFormData({
-                ad_soyad: '',
-                telefon: '',
-                email: '',
-                konu: '',
-                mesaj: ''
+
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formDataToSend)
             });
-            setCountryCode('+90');
+
+            const result = await response.json();
+
+            if (result.success) {
+                setSubmitStatus('success');
+                setFormData({
+                    ad_soyad: '',
+                    telefon: '',
+                    email: '',
+                    konu: '',
+                    mesaj: ''
+                });
+                setCountryCode('+90');
+            } else {
+                throw new Error(result.message || 'Form submission failed');
+            }
         } catch (error) {
-            console.error('EmailJS Error:', error);
+            console.error('Web3Forms Error:', error);
             setSubmitStatus('error');
         } finally {
             setIsSubmitting(false);
@@ -99,10 +113,10 @@ const ContactPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 transition-colors duration-300">
+        <div className="min-h-screen bg-[#0a1929] transition-colors duration-300">
             {/* Hero Section */}
             <section
-                className="pb-16 lg:pb-24 bg-gradient-to-b from-gray-800 to-gray-900"
+                className="pb-16 lg:pb-24 bg-gradient-to-b from-[#0f172a] to-[#0a1929]"
                 style={{ paddingTop: '160px' }}
             >
                 <div style={{
@@ -147,7 +161,7 @@ const ContactPage = () => {
             <div
                 className="h-20 -mt-10 relative z-10"
                 style={{
-                    background: 'linear-gradient(to bottom, transparent 0%, rgba(17,24,39,0.5) 50%, transparent 100%)'
+                    background: 'linear-gradient(to bottom, transparent 0%, rgba(10, 25, 41, 0.5) 50%, transparent 100%)'
                 }}
             />
 
@@ -175,8 +189,8 @@ const ContactPage = () => {
 
                             <div className="space-y-6">
                                 {/* Phone */}
-                                <div className="flex items-start gap-4 p-6 bg-gray-800 rounded-2xl border border-gray-700 shadow-sm hover:shadow-lg transition-all card-hover">
-                                    <div className="w-12 h-12 bg-teal-900/50 rounded-xl flex items-center justify-center text-teal-400">
+                                <div className="flex items-start gap-4 p-6 bg-[#1e293b] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
+                                    <div className="w-12 h-12 bg-[#0a1929] rounded-xl flex items-center justify-center text-[#d4af37] group-hover:scale-110 transition-transform">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
@@ -185,7 +199,7 @@ const ContactPage = () => {
                                         <h3 className="font-semibold text-white mb-1">{t('contact.phone')}</h3>
                                         <a
                                             href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
-                                            className="text-xl font-bold text-teal-400 hover:text-teal-300 transition-colors"
+                                            className="text-xl font-bold text-[#d4af37] hover:text-[#fcd34d] transition-colors"
                                         >
                                             {contactInfo.phone}
                                         </a>
@@ -193,8 +207,8 @@ const ContactPage = () => {
                                 </div>
 
                                 {/* Address */}
-                                <div className="flex items-start gap-4 p-6 bg-gray-800 rounded-2xl border border-gray-700 shadow-sm hover:shadow-lg transition-all card-hover">
-                                    <div className="w-12 h-12 bg-teal-900/50 rounded-xl flex items-center justify-center text-teal-400">
+                                <div className="flex items-start gap-4 p-6 bg-[#1e293b] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
+                                    <div className="w-12 h-12 bg-[#0a1929] rounded-xl flex items-center justify-center text-[#d4af37] group-hover:scale-110 transition-transform">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -209,8 +223,8 @@ const ContactPage = () => {
                                 </div>
 
                                 {/* Email */}
-                                <div className="flex items-start gap-4 p-6 bg-gray-800 rounded-2xl border border-gray-700 shadow-sm hover:shadow-lg transition-all card-hover">
-                                    <div className="w-12 h-12 bg-teal-900/50 rounded-xl flex items-center justify-center text-teal-400">
+                                <div className="flex items-start gap-4 p-6 bg-[#1e293b] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
+                                    <div className="w-12 h-12 bg-[#0a1929] rounded-xl flex items-center justify-center text-[#d4af37] group-hover:scale-110 transition-transform">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
@@ -219,7 +233,7 @@ const ContactPage = () => {
                                         <h3 className="font-semibold text-white mb-1">{t('contact.email')}</h3>
                                         <a
                                             href={`mailto:${contactInfo.email}`}
-                                            className="text-teal-400 hover:text-teal-300 transition-colors"
+                                            className="text-[#d4af37] hover:text-[#fcd34d] transition-colors"
                                         >
                                             {contactInfo.email}
                                         </a>
@@ -244,7 +258,7 @@ const ContactPage = () => {
                                 <motion.div
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="mb-6 p-4 bg-teal-900/50 border border-teal-500 rounded-xl text-teal-300"
+                                    className="mb-6 p-4 bg-[#0a1929]/50 border border-[#d4af37] rounded-xl text-[#d4af37]"
                                 >
                                     {t('contact.successMessage')}
                                 </motion.div>
@@ -273,7 +287,7 @@ const ContactPage = () => {
                                             value={formData.ad_soyad}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-5 py-4 rounded-2xl border border-gray-600 bg-gray-800/80 text-white text-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all placeholder:text-gray-500"
+                                            className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all placeholder:text-gray-500"
                                             placeholder={t('contact.fullNamePlaceholder')}
                                         />
                                     </div>
@@ -287,7 +301,7 @@ const ContactPage = () => {
                                                 <button
                                                     type="button"
                                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                                    className="w-36 px-4 py-4 rounded-2xl border border-gray-600 bg-gray-800/80 text-white text-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all cursor-pointer flex items-center justify-between"
+                                                    className="w-36 px-4 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all cursor-pointer flex items-center justify-between"
                                                 >
                                                     <span className="flex items-center gap-2">
                                                         <img src={selectedCountry.flagUrl} alt="" className="w-6 h-auto rounded-sm" />
@@ -304,7 +318,7 @@ const ContactPage = () => {
                                                 </button>
 
                                                 {isDropdownOpen && (
-                                                    <div className="absolute top-full left-0 mt-2 w-44 bg-gray-800 border border-gray-600 rounded-2xl shadow-xl z-50 overflow-hidden">
+                                                    <div className="absolute top-full left-0 mt-2 w-44 bg-[#1e293b] border border-gray-600 rounded-2xl shadow-xl z-50 overflow-hidden">
                                                         {countryCodes.map((country) => (
                                                             <button
                                                                 key={country.code}
@@ -313,7 +327,7 @@ const ContactPage = () => {
                                                                     setCountryCode(country.code);
                                                                     setIsDropdownOpen(false);
                                                                 }}
-                                                                className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-700 transition-colors text-left ${countryCode === country.code ? 'bg-teal-900/50 text-teal-300' : 'text-white'
+                                                                className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-700 transition-colors text-left ${countryCode === country.code ? 'bg-[#0a1929] text-[#d4af37]' : 'text-white'
                                                                     }`}
                                                             >
                                                                 <img src={country.flagUrl} alt="" className="w-6 h-auto rounded-sm" />
@@ -334,7 +348,7 @@ const ContactPage = () => {
                                                 }}
                                                 required
                                                 maxLength={13}
-                                                className="w-full px-5 py-4 rounded-2xl border border-gray-600 bg-gray-800/80 text-white text-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all placeholder:text-gray-500"
+                                                className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all placeholder:text-gray-500"
                                                 placeholder={t('contact.phonePlaceholder')}
                                             />
                                         </div>
@@ -351,7 +365,7 @@ const ContactPage = () => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-5 py-4 rounded-2xl border border-gray-600 bg-gray-800/80 text-white text-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all placeholder:text-gray-500"
+                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all placeholder:text-gray-500"
                                         placeholder={t('contact.emailPlaceholder')}
                                     />
                                 </div>
@@ -365,7 +379,7 @@ const ContactPage = () => {
                                         value={formData.konu}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-5 py-4 rounded-2xl border border-gray-600 bg-gray-800/80 text-white text-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all appearance-none cursor-pointer"
+                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all appearance-none cursor-pointer"
                                         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.25rem' }}
                                     >
                                         <option value="">{t('contact.subjectPlaceholder')}</option>
@@ -387,7 +401,7 @@ const ContactPage = () => {
                                         onChange={handleChange}
                                         required
                                         rows={6}
-                                        className="w-full px-5 py-4 rounded-2xl border border-gray-600 bg-gray-800/80 text-white text-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all resize-none placeholder:text-gray-500"
+                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none placeholder:text-gray-500"
                                         placeholder={t('contact.messagePlaceholder')}
                                     />
                                 </div>
@@ -402,17 +416,17 @@ const ContactPage = () => {
                                         padding: '22px 40px',
                                         background: isSubmitting
                                             ? 'linear-gradient(135deg, #6b7280 0%, #9ca3af 100%)'
-                                            : 'linear-gradient(135deg, #0d9488 0%, #14b8a6 100%)',
-                                        color: 'white',
+                                            : 'linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%)',
+                                        color: isSubmitting ? 'white' : '#0a1929',
                                         borderRadius: '20px',
-                                        fontWeight: '700',
+                                        fontWeight: '800',
                                         fontSize: '1.2rem',
                                         letterSpacing: '0.5px',
                                         border: 'none',
                                         cursor: isSubmitting ? 'not-allowed' : 'pointer',
                                         boxShadow: isSubmitting
                                             ? 'none'
-                                            : '0 15px 40px rgba(13, 148, 136, 0.4)'
+                                            : '0 10px 30px rgba(212, 175, 55, 0.4)'
                                     }}
                                 >
                                     {isSubmitting ? t('contact.sendingButton') : t('contact.submitButton')}
