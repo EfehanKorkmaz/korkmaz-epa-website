@@ -10,7 +10,25 @@
     "home": {
         "slogan": "\"Building a new world for you.\"",
         "description": "We turn your dreams into reality with quality, trust, and innovative approaches.",
-        "cta": "Contact Us"
+        "cta": "Contact Us",
+        "heroTitle1": "Building",
+        "heroTitle2": "With Precision",
+        "stats": {
+            "yearsExperience": "Years Experience",
+            "projectsCompleted": "Projects Completed",
+            "happyClients": "Happy Clients",
+            "teamMembers": "Team Members"
+        },
+        "whoWeAre": "Who We Are",
+        "aboutTitle": "Delivering Excellence in Every Structure",
+        "aboutDesc": "At Korkmaz EPA İnşaat, we combine decades of engineering expertise with modern architectural vision. From luxury residences to complex commercial infrastructures, our commitment to quality never wavers.",
+        "moreAboutUs": "More About Us",
+        "servicesTitle": "Where We Excel",
+        "servicesSubtitle": "Our Core Services",
+        "learnMore": "Learn More",
+        "projectsTitle": "Crafting Landmark Projects",
+        "projectsDesc": "Browse our portfolio to see how we turn ambitious visions into concrete reality.",
+        "viewAllProjects": "View All Projects"
     },
     "about": {
         "title": "About Us",

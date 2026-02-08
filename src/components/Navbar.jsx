@@ -37,7 +37,7 @@ const Navbar = () => {
         if (showTransparent) {
             return 'bg-transparent py-6';
         }
-        return 'bg-[#0a1929]/95 backdrop-blur-lg shadow-xl py-4 border-b border-white/5';
+        return 'bg-[#042f2e]/95 backdrop-blur-lg shadow-xl py-4 border-b border-white/5';
     };
 
     return (
@@ -67,13 +67,13 @@ const Navbar = () => {
                                     className="relative group py-2"
                                 >
                                     <span className={`text-[0.95rem] tracking-wide font-medium transition-colors duration-300 ${location.pathname === item.path
-                                            ? 'text-[#d4af37]'
-                                            : 'text-gray-300 group-hover:text-white'
+                                        ? 'text-[#14b8a6]'
+                                        : 'text-gray-300 group-hover:text-white'
                                         }`}>
                                         {item.name}
                                     </span>
                                     {/* Elegant Underline Effect */}
-                                    <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#d4af37] transform origin-left transition-transform duration-300 ${location.pathname === item.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                                    <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#14b8a6] transform origin-left transition-transform duration-300 ${location.pathname === item.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                                         }`} />
                                 </Link>
                             ))}
@@ -85,7 +85,7 @@ const Navbar = () => {
                         {/* Language Toggle */}
                         <button
                             onClick={toggleLanguage}
-                            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 hover:border-[#d4af37]/50 hover:bg-[#d4af37]/10 transition-all duration-300"
+                            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 hover:border-[#14b8a6]/50 hover:bg-[#14b8a6]/10 transition-all duration-300"
                             title={language === 'tr' ? 'Switch to English' : 'Türkçe\'ye geç'}
                         >
                             <span className="text-xl filter drop-shadow-md">{language === 'tr' ? '🇹🇷' : '🇺🇸'}</span>
@@ -107,9 +107,9 @@ const Navbar = () => {
                             aria-label="Menü"
                         >
                             <div className="flex flex-col justify-center items-center w-6 gap-1.5">
-                                <span className={`block w-6 h-[2px] bg-[#d4af37] transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                                <span className={`block w-6 h-[2px] bg-[#14b8a6] transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
                                 <span className={`block w-4 h-[2px] bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
-                                <span className={`block w-6 h-[2px] bg-[#d4af37] transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                                <span className={`block w-6 h-[2px] bg-[#14b8a6] transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
                             </div>
                         </button>
                     </div>
@@ -124,7 +124,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="lg:hidden bg-[#0a1929] border-t border-white/10 overflow-hidden"
+                        className="lg:hidden bg-[#042f2e] border-t border-white/10 overflow-hidden"
                     >
                         <div className="px-6 py-8 space-y-2">
                             {menuItems.map((item) => (
@@ -132,8 +132,8 @@ const Navbar = () => {
                                     key={item.path}
                                     to={item.path}
                                     className={`block py-3 text-lg font-heading tracking-wide border-l-2 pl-4 transition-all ${location.pathname === item.path
-                                            ? 'border-[#d4af37] text-[#d4af37] bg-white/5'
-                                            : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
+                                        ? 'border-[#14b8a6] text-[#14b8a6] bg-white/5'
+                                        : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
                                         }`}
                                 >
                                     {item.name}

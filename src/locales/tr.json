@@ -10,7 +10,25 @@
     "home": {
         "slogan": "\"Size yeni bir dünya inşa ediyoruz.\"",
         "description": "Kalite, güven ve yenilikçi yaklaşımlarla hayallerinizi gerçeğe dönüştürüyoruz.",
-        "cta": "İletişime Geçin"
+        "cta": "İletişime Geçin",
+        "heroTitle1": "Hayallerinizi",
+        "heroTitle2": "Hassasiyetle İnşa Ediyoruz",
+        "stats": {
+            "yearsExperience": "Yıllık Deneyim",
+            "projectsCompleted": "Tamamlanan Proje",
+            "happyClients": "Mutlu Müşteri",
+            "teamMembers": "Ekip Üyesi"
+        },
+        "whoWeAre": "Biz Kimiz",
+        "aboutTitle": "Her Yapıda Mükemmellik Sunuyoruz",
+        "aboutDesc": "Korkmaz EPA İnşaat olarak, onlarca yıllık mühendislik deneyimimizi modern mimari vizyonla birleştiriyoruz. Lüks konutlardan karmaşık ticari altyapılara kadar kaliteye olan bağlılığımız asla sarsılmaz.",
+        "moreAboutUs": "Hakkımızda Daha Fazla",
+        "servicesTitle": "Uzman Olduğumuz Alanlar",
+        "servicesSubtitle": "Temel Hizmetlerimiz",
+        "learnMore": "Daha Fazla",
+        "projectsTitle": "Önemli Projeler Üretiyoruz",
+        "projectsDesc": "Vizyonlarımızı somut gerçekliğe nasıl dönüştürdüğümüzü görmek için portföyümüzü inceleyin.",
+        "viewAllProjects": "Tüm Projeleri Görüntüle"
     },
     "about": {
         "title": "Hakkımızda",

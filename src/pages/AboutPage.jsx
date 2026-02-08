@@ -15,10 +15,10 @@ const AboutPage = () => {
     const featureKeys = ['quality', 'onTime', 'safety', 'satisfaction'];
 
     return (
-        <div className="min-h-screen bg-[#0a1929] transition-colors duration-300">
+        <div className="min-h-screen bg-[#042f2e] transition-colors duration-300">
             {/* Hero Section */}
             <section
-                className="pb-16 lg:pb-24 bg-gradient-to-b from-[#0f172a] to-[#0a1929]"
+                className="pb-16 lg:pb-24 bg-gradient-to-b from-[#0f766e] to-[#042f2e]"
                 style={{ paddingTop: '160px' }}
             >
                 <div style={{
@@ -92,9 +92,9 @@ const AboutPage = () => {
                                     alt="Modern şantiye"
                                     className="w-full h-[500px] object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1929]/80 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#042f2e]/80 to-transparent" />
                             </div>
-                            <div className="absolute -top-4 -left-4 w-24 h-24 border-4 border-[#d4af37] rounded-2xl -z-10" />
+                            <div className="absolute -top-4 -left-4 w-24 h-24 border-4 border-[#14b8a6] rounded-2xl -z-10" />
                         </motion.div>
 
                         {/* Content Side */}
@@ -117,9 +117,9 @@ const AboutPage = () => {
                                     return (
                                         <div
                                             key={featureKey}
-                                            className="flex items-start gap-4 p-6 rounded-2xl bg-gradient-to-br from-[#1e293b] to-[#0f172a] border border-white/5 shadow-lg hover:shadow-xl hover:border-[#d4af37]/50 hover:-translate-y-1 transition-all duration-300"
+                                            className="flex items-start gap-4 p-6 rounded-2xl bg-gradient-to-br from-[#115e59] to-[#0f766e] border border-white/5 shadow-lg hover:shadow-xl hover:border-[#14b8a6]/50 hover:-translate-y-1 transition-all duration-300"
                                         >
-                                            <span className="text-3xl text-[#d4af37]">{feature.icon}</span>
+                                            <span className="text-3xl text-[#14b8a6]">{feature.icon}</span>
                                             <div>
                                                 <p className="font-bold text-lg text-white mb-1">
                                                     {t(`features.${featureKey}`)}
@@ -146,7 +146,7 @@ const AboutPage = () => {
             />
 
             {/* Stats Section */}
-            <section ref={ref} className="py-24 bg-[#0f172a] -mt-32" style={{ paddingBottom: '120px' }}>
+            <section ref={ref} className="py-24 bg-[#0f766e] -mt-32" style={{ paddingBottom: '120px' }}>
                 <div style={{
                     width: '100%',
                     display: 'flex',
@@ -162,7 +162,7 @@ const AboutPage = () => {
                         style={{ textAlign: 'center', marginBottom: '48px', width: '100%' }}
                     >
                         <h2 className="text-3xl sm:text-4xl font-bold tracking-wide text-white font-[family-name:var(--font-family-heading)] mb-4">
-                            {t('about.statsTitle')} <span className="text-[#d4af37]">Korkmaz EPA</span>
+                            {t('about.statsTitle')} <span className="text-[#14b8a6]">Korkmaz EPA</span>
                         </h2>
                     </motion.div>
 
@@ -188,7 +188,7 @@ const AboutPage = () => {
                                     }}
                                     whileHover={{ scale: 1.05, y: -5, borderColor: 'rgba(212, 175, 55, 0.3)' }}
                                 >
-                                    <span style={{ fontSize: '2.5rem', marginBottom: '12px', display: 'block', color: '#d4af37' }}>{stat.icon}</span>
+                                    <span style={{ fontSize: '2.5rem', marginBottom: '12px', display: 'block', color: '#14b8a6' }}>{stat.icon}</span>
                                     <div style={{
                                         fontSize: '3rem',
                                         fontWeight: '800',
@@ -210,3 +210,4 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
+

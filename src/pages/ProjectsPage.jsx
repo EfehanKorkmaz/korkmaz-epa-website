@@ -62,13 +62,13 @@ const ProjectsPage = () => {
     }, []);
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#0a1929' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: '#042f2e' }}>
             {/* Hero Section - Title Only */}
             <section
                 style={{
                     paddingTop: '160px',
                     paddingBottom: '40px',
-                    background: 'linear-gradient(to bottom, #0f172a, #0a1929)'
+                    background: 'linear-gradient(to bottom, #0f766e, #042f2e)'
                 }}
             >
                 <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px', textAlign: 'center' }}>
@@ -116,7 +116,7 @@ const ProjectsPage = () => {
                                 position: 'relative',
                                 overflow: 'hidden',
                                 borderRadius: '20px',
-                                backgroundColor: '#1e293b',
+                                backgroundColor: '#115e59',
                                 aspectRatio: isMobile ? '16/10' : '21/9',
                                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
                                 border: '1px solid rgba(255, 255, 255, 0.1)'
@@ -156,8 +156,8 @@ const ProjectsPage = () => {
                                         alignItems: 'center',
                                         gap: '8px',
                                         padding: '8px 20px',
-                                        backgroundColor: '#d4af37',
-                                        color: '#0a1929',
+                                        backgroundColor: '#14b8a6',
+                                        color: '#042f2e',
                                         fontSize: '14px',
                                         fontWeight: '800',
                                         borderRadius: '50px',
@@ -169,7 +169,7 @@ const ProjectsPage = () => {
                                             width: '8px',
                                             height: '8px',
                                             borderRadius: '50%',
-                                            backgroundColor: '#0a1929',
+                                            backgroundColor: '#042f2e',
                                             animation: 'pulse 2s infinite'
                                         }}></span>
                                         {t('projects.ongoing')}
@@ -229,7 +229,7 @@ const ProjectsPage = () => {
                                     position: 'relative',
                                     overflow: 'hidden',
                                     borderRadius: '16px',
-                                    backgroundColor: '#1e293b',
+                                    backgroundColor: '#115e59',
                                     aspectRatio: '16/10',
                                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
                                     border: '1px solid rgba(255, 255, 255, 0.05)'
@@ -291,8 +291,8 @@ const ProjectsPage = () => {
                             alignItems: 'center',
                             gap: '12px',
                             padding: '18px 48px',
-                            background: 'linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%)',
-                            color: '#0a1929',
+                            background: 'linear-gradient(135deg, #14b8a6 0%, #aa8c2c 100%)',
+                            color: '#042f2e',
                             fontSize: '1.125rem',
                             fontWeight: '800',
                             borderRadius: '16px',
@@ -338,3 +338,4 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
+

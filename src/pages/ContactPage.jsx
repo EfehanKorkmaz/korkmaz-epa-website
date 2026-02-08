@@ -113,10 +113,10 @@ const ContactPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#0a1929] transition-colors duration-300">
+        <div className="min-h-screen bg-[#042f2e] transition-colors duration-300">
             {/* Hero Section */}
             <section
-                className="pb-16 lg:pb-24 bg-gradient-to-b from-[#0f172a] to-[#0a1929]"
+                className="pb-16 lg:pb-24 bg-gradient-to-b from-[#0f766e] to-[#042f2e]"
                 style={{ paddingTop: '160px' }}
             >
                 <div style={{
@@ -189,8 +189,8 @@ const ContactPage = () => {
 
                             <div className="space-y-6">
                                 {/* Phone */}
-                                <div className="flex items-start gap-4 p-6 bg-[#1e293b] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
-                                    <div className="w-12 h-12 bg-[#0a1929] rounded-xl flex items-center justify-center text-[#d4af37] group-hover:scale-110 transition-transform">
+                                <div className="flex items-start gap-4 p-6 bg-[#115e59] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
+                                    <div className="w-12 h-12 bg-[#042f2e] rounded-xl flex items-center justify-center text-[#14b8a6] group-hover:scale-110 transition-transform">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
@@ -199,7 +199,7 @@ const ContactPage = () => {
                                         <h3 className="font-semibold text-white mb-1">{t('contact.phone')}</h3>
                                         <a
                                             href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
-                                            className="text-xl font-bold text-[#d4af37] hover:text-[#fcd34d] transition-colors"
+                                            className="text-xl font-bold text-[#14b8a6] hover:text-[#fcd34d] transition-colors"
                                         >
                                             {contactInfo.phone}
                                         </a>
@@ -207,8 +207,8 @@ const ContactPage = () => {
                                 </div>
 
                                 {/* Address */}
-                                <div className="flex items-start gap-4 p-6 bg-[#1e293b] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
-                                    <div className="w-12 h-12 bg-[#0a1929] rounded-xl flex items-center justify-center text-[#d4af37] group-hover:scale-110 transition-transform">
+                                <div className="flex items-start gap-4 p-6 bg-[#115e59] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
+                                    <div className="w-12 h-12 bg-[#042f2e] rounded-xl flex items-center justify-center text-[#14b8a6] group-hover:scale-110 transition-transform">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -223,8 +223,8 @@ const ContactPage = () => {
                                 </div>
 
                                 {/* Email */}
-                                <div className="flex items-start gap-4 p-6 bg-[#1e293b] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
-                                    <div className="w-12 h-12 bg-[#0a1929] rounded-xl flex items-center justify-center text-[#d4af37] group-hover:scale-110 transition-transform">
+                                <div className="flex items-start gap-4 p-6 bg-[#115e59] rounded-2xl border border-white/5 shadow-sm hover:shadow-lg transition-all card-hover group">
+                                    <div className="w-12 h-12 bg-[#042f2e] rounded-xl flex items-center justify-center text-[#14b8a6] group-hover:scale-110 transition-transform">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
@@ -233,7 +233,7 @@ const ContactPage = () => {
                                         <h3 className="font-semibold text-white mb-1">{t('contact.email')}</h3>
                                         <a
                                             href={`mailto:${contactInfo.email}`}
-                                            className="text-[#d4af37] hover:text-[#fcd34d] transition-colors"
+                                            className="text-[#14b8a6] hover:text-[#fcd34d] transition-colors"
                                         >
                                             {contactInfo.email}
                                         </a>
@@ -258,7 +258,7 @@ const ContactPage = () => {
                                 <motion.div
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="mb-6 p-4 bg-[#0a1929]/50 border border-[#d4af37] rounded-xl text-[#d4af37]"
+                                    className="mb-6 p-4 bg-[#042f2e]/50 border border-[#14b8a6] rounded-xl text-[#14b8a6]"
                                 >
                                     {t('contact.successMessage')}
                                 </motion.div>
@@ -287,7 +287,7 @@ const ContactPage = () => {
                                             value={formData.ad_soyad}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all placeholder:text-gray-500"
+                                            className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#042f2e]/50 text-white text-lg focus:ring-2 focus:ring-[#14b8a6] focus:border-[#14b8a6] transition-all placeholder:text-gray-500"
                                             placeholder={t('contact.fullNamePlaceholder')}
                                         />
                                     </div>
@@ -301,7 +301,7 @@ const ContactPage = () => {
                                                 <button
                                                     type="button"
                                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                                    className="w-36 px-4 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all cursor-pointer flex items-center justify-between"
+                                                    className="w-36 px-4 py-4 rounded-2xl border border-gray-700 bg-[#042f2e]/50 text-white text-lg focus:ring-2 focus:ring-[#14b8a6] focus:border-[#14b8a6] transition-all cursor-pointer flex items-center justify-between"
                                                 >
                                                     <span className="flex items-center gap-2">
                                                         <img src={selectedCountry.flagUrl} alt="" className="w-6 h-auto rounded-sm" />
@@ -318,7 +318,7 @@ const ContactPage = () => {
                                                 </button>
 
                                                 {isDropdownOpen && (
-                                                    <div className="absolute top-full left-0 mt-2 w-44 bg-[#1e293b] border border-gray-600 rounded-2xl shadow-xl z-50 overflow-hidden">
+                                                    <div className="absolute top-full left-0 mt-2 w-44 bg-[#115e59] border border-gray-600 rounded-2xl shadow-xl z-50 overflow-hidden">
                                                         {countryCodes.map((country) => (
                                                             <button
                                                                 key={country.code}
@@ -327,7 +327,7 @@ const ContactPage = () => {
                                                                     setCountryCode(country.code);
                                                                     setIsDropdownOpen(false);
                                                                 }}
-                                                                className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-700 transition-colors text-left ${countryCode === country.code ? 'bg-[#0a1929] text-[#d4af37]' : 'text-white'
+                                                                className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-700 transition-colors text-left ${countryCode === country.code ? 'bg-[#042f2e] text-[#14b8a6]' : 'text-white'
                                                                     }`}
                                                             >
                                                                 <img src={country.flagUrl} alt="" className="w-6 h-auto rounded-sm" />
@@ -348,7 +348,7 @@ const ContactPage = () => {
                                                 }}
                                                 required
                                                 maxLength={13}
-                                                className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all placeholder:text-gray-500"
+                                                className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#042f2e]/50 text-white text-lg focus:ring-2 focus:ring-[#14b8a6] focus:border-[#14b8a6] transition-all placeholder:text-gray-500"
                                                 placeholder={t('contact.phonePlaceholder')}
                                             />
                                         </div>
@@ -365,7 +365,7 @@ const ContactPage = () => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all placeholder:text-gray-500"
+                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#042f2e]/50 text-white text-lg focus:ring-2 focus:ring-[#14b8a6] focus:border-[#14b8a6] transition-all placeholder:text-gray-500"
                                         placeholder={t('contact.emailPlaceholder')}
                                     />
                                 </div>
@@ -379,7 +379,7 @@ const ContactPage = () => {
                                         value={formData.konu}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all appearance-none cursor-pointer"
+                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#042f2e]/50 text-white text-lg focus:ring-2 focus:ring-[#14b8a6] focus:border-[#14b8a6] transition-all appearance-none cursor-pointer"
                                         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.25rem' }}
                                     >
                                         <option value="">{t('contact.subjectPlaceholder')}</option>
@@ -401,7 +401,7 @@ const ContactPage = () => {
                                         onChange={handleChange}
                                         required
                                         rows={6}
-                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#0a1929]/50 text-white text-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none placeholder:text-gray-500"
+                                        className="w-full px-5 py-4 rounded-2xl border border-gray-700 bg-[#042f2e]/50 text-white text-lg focus:ring-2 focus:ring-[#14b8a6] focus:border-[#14b8a6] transition-all resize-none placeholder:text-gray-500"
                                         placeholder={t('contact.messagePlaceholder')}
                                     />
                                 </div>
@@ -416,8 +416,8 @@ const ContactPage = () => {
                                         padding: '22px 40px',
                                         background: isSubmitting
                                             ? 'linear-gradient(135deg, #6b7280 0%, #9ca3af 100%)'
-                                            : 'linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%)',
-                                        color: isSubmitting ? 'white' : '#0a1929',
+                                            : 'linear-gradient(135deg, #14b8a6 0%, #aa8c2c 100%)',
+                                        color: isSubmitting ? 'white' : '#042f2e',
                                         borderRadius: '20px',
                                         fontWeight: '800',
                                         fontSize: '1.2rem',
@@ -441,3 +441,4 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
+

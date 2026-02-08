@@ -23,16 +23,16 @@ const HomePage = () => {
     const { t } = useLanguage();
 
     const stats = [
-        { label: "Years Experience", value: "25+" },
-        { label: "Projects Completed", value: "150+" },
-        { label: "Happy Clients", value: "100%" },
-        { label: "Team Members", value: "40+" }
+        { label: t('home.stats.yearsExperience'), value: "25+" },
+        { label: t('home.stats.projectsCompleted'), value: "150+" },
+        { label: t('home.stats.happyClients'), value: "100%" },
+        { label: t('home.stats.teamMembers'), value: "40+" }
     ];
 
     const services = [
         {
-            title: t('services.residential') || "Luxury Residential",
-            desc: "Custom homes built with uncompromising quality and attention to detail.",
+            title: t('services.residential'),
+            desc: t('services.residentialDesc'),
             icon: (
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -40,8 +40,8 @@ const HomePage = () => {
             )
         },
         {
-            title: t('services.commercial') || "Commercial",
-            desc: "State-of-the-art commercial spaces designed for business success.",
+            title: t('services.commercial'),
+            desc: t('services.commercialDesc'),
             icon: (
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -49,8 +49,8 @@ const HomePage = () => {
             )
         },
         {
-            title: t('services.contracting') || "General Contracting",
-            desc: "End-to-end project management ensuring on-time, on-budget delivery.",
+            title: t('services.contracting'),
+            desc: t('services.contractingDesc'),
             icon: (
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -60,15 +60,15 @@ const HomePage = () => {
     ];
 
     return (
-        <div className="bg-white dark:bg-[#0a1929] min-h-screen">
+        <div className="bg-white dark:bg-[#042f2e] min-h-screen">
             {/* HERO SECTION */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed transform scale-105"
                     style={{ backgroundImage: `url(${anasayfaArkaplan})` }}
                 >
-                    <div className="absolute inset-0 bg-[#0a1929]/70" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a1929] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-[#042f2e]/70" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#042f2e] via-transparent to-transparent" />
                 </div>
 
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center mt-16">
@@ -89,21 +89,21 @@ const HomePage = () => {
                             variants={fadeInUp}
                             className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-tight mb-6"
                         >
-                            Building <span className="text-gradient-gold">{t('home.slogan') || "Dreams"}</span>
-                            <br /> With Precision
+                            {t('home.heroTitle1')} <span className="text-gradient-gold">{t('home.slogan')}</span>
+                            <br /> {t('home.heroTitle2')}
                         </motion.h1>
 
                         <motion.p
                             variants={fadeInUp}
                             className="text-lg md:text-xl text-gray-300 max-w-2xl mb-10 font-light leading-relaxed"
                         >
-                            {t('home.description') || "We deliver high-end construction solutions with a focus on quality, innovation, and sustainability. Your vision is our blueprint."}
+                            {t('home.description')}
                         </motion.p>
 
                         <motion.div variants={fadeInUp}>
-                            <Link to="/projects">
+                            <Link to="/contact">
                                 <button className="btn-premium px-10 py-5 rounded-full text-lg font-bold uppercase tracking-widest shadow-2xl">
-                                    {t('home.cta') || "Discover Our Work"}
+                                    {t('home.cta')}
                                 </button>
                             </Link>
                         </motion.div>
@@ -124,7 +124,7 @@ const HomePage = () => {
             </section>
 
             {/* STATS SECTION */}
-            <section className="bg-[#0f172a] py-16 border-y border-white/5 relative overflow-hidden">
+            <section className="bg-[#0f766e] py-16 border-y border-white/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -137,8 +137,8 @@ const HomePage = () => {
                                 transition={{ delay: index * 0.1 }}
                                 className="p-4"
                             >
-                                <h3 className="text-4xl md:text-5xl font-heading font-bold text-[#d4af37] mb-2">{stat.value}</h3>
-                                <p className="text-gray-400 text-sm md:text-base uppercase tracking-wider">{stat.label}</p>
+                                <h3 className="text-4xl md:text-5xl font-heading font-bold text-[#5eead4] mb-2">{stat.value}</h3>
+                                <p className="text-white/80 text-sm md:text-base uppercase tracking-wider">{stat.label}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -146,7 +146,7 @@ const HomePage = () => {
             </section>
 
             {/* INTRODUCTION / ABOUT BRIEF */}
-            <section className="py-24 bg-white dark:bg-[#0a1929]">
+            <section className="py-24 bg-white dark:bg-[#042f2e]">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <motion.div
@@ -155,16 +155,16 @@ const HomePage = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-[#d4af37] font-bold tracking-widest uppercase mb-4 text-sm">Who We Are</h2>
+                            <h2 className="text-[#14b8a6] font-bold tracking-widest uppercase mb-4 text-sm">{t('home.whoWeAre')}</h2>
                             <h3 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                                Delivering Excellence in Every <span className="text-[#d4af37]">Structure</span>
+                                {t('home.aboutTitle').split(' ').slice(0, -1).join(' ')} <span className="text-[#14b8a6]">{t('home.aboutTitle').split(' ').slice(-1)}</span>
                             </h3>
                             <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                                At Korkmaz EPA İnşaat, we combine decades of engineering expertise with modern architectural vision. From luxury residences to complex commercial infrastructures, our commitment to quality never wavers.
+                                {t('home.aboutDesc')}
                             </p>
                             <div className="flex gap-4">
-                                <Link to="/about" className="text-[#0a1929] dark:text-white font-bold border-b-2 border-[#d4af37] pb-1 hover:text-[#d4af37] transition-colors">
-                                    More About Us
+                                <Link to="/about" className="text-[#042f2e] dark:text-white font-bold border-b-2 border-[#14b8a6] pb-1 hover:text-[#14b8a6] transition-colors">
+                                    {t('home.moreAboutUs')}
                                 </Link>
                             </div>
                         </motion.div>
@@ -175,7 +175,7 @@ const HomePage = () => {
                             transition={{ duration: 0.8 }}
                             className="relative"
                         >
-                            <div className="absolute inset-0 bg-[#d4af37] rounded-3xl transform rotate-3 opacity-20"></div>
+                            <div className="absolute inset-0 bg-[#14b8a6] rounded-3xl transform rotate-3 opacity-20"></div>
                             <img
                                 src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop"
                                 alt="Construction Site"
@@ -187,11 +187,11 @@ const HomePage = () => {
             </section>
 
             {/* SERVICES PREVIEW */}
-            <section className="py-24 bg-gray-50 dark:bg-[#0f172a] relative">
+            <section className="py-24 bg-gray-50 dark:bg-[#0f766e]/20 relative">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-[#d4af37] font-bold tracking-widest uppercase mb-4 text-sm">Where We Excel</h2>
-                        <h3 className="text-4xl font-heading font-bold text-gray-900 dark:text-white">Our Core Services</h3>
+                        <h2 className="text-[#14b8a6] font-bold tracking-widest uppercase mb-4 text-sm">{t('home.servicesTitle')}</h2>
+                        <h3 className="text-4xl font-heading font-bold text-gray-900 dark:text-white">{t('home.servicesSubtitle')}</h3>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
@@ -202,15 +202,15 @@ const HomePage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.2 }}
-                                className="bg-white dark:bg-[#1e293b] p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-white/5 hover:border-[#d4af37] transition-all duration-300 hover:-translate-y-2 group"
+                                className="bg-white dark:bg-[#115e59] p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-white/5 hover:border-[#14b8a6] transition-all duration-300 hover:-translate-y-2 group"
                             >
-                                <div className="w-16 h-16 bg-[#0a1929] dark:bg-[#0f172a] rounded-xl flex items-center justify-center text-[#d4af37] mb-6 group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-[#042f2e] dark:bg-[#0f766e] rounded-xl flex items-center justify-center text-[#5eead4] mb-6 group-hover:scale-110 transition-transform">
                                     {service.icon}
                                 </div>
                                 <h4 className="text-2xl font-bold font-heading text-gray-900 dark:text-white mb-4">{service.title}</h4>
-                                <p className="text-gray-600 dark:text-gray-400 mb-6">{service.desc}</p>
-                                <Link to="/services" className="text-[#d4af37] font-medium flex items-center gap-2 group-hover:gap-3 transition-all">
-                                    Learn More
+                                <p className="text-gray-600 dark:text-gray-300 mb-6">{service.desc}</p>
+                                <Link to="/services" className="text-[#14b8a6] font-medium flex items-center gap-2 group-hover:gap-3 transition-all">
+                                    {t('home.learnMore')}
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                                 </Link>
                             </motion.div>
@@ -220,15 +220,15 @@ const HomePage = () => {
             </section>
 
             {/* LATEST PROJECTS TEASER */}
-            <section className="py-24 bg-white dark:bg-[#0a1929]">
+            <section className="py-24 bg-white dark:bg-[#042f2e]">
                 <div className="max-w-7xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl font-heading font-bold text-gray-900 dark:text-white mb-8">Crafting Landmark Projects</h2>
+                    <h2 className="text-4xl font-heading font-bold text-gray-900 dark:text-white mb-8">{t('home.projectsTitle')}</h2>
                     <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
-                        Browse our portfolio to see how we turn ambitious visions into concrete reality.
+                        {t('home.projectsDesc')}
                     </p>
                     <Link to="/projects">
-                        <button className="border-2 border-[#0a1929] dark:border-white text-[#0a1929] dark:text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-[#0a1929] hover:text-white dark:hover:bg-white dark:hover:text-[#0a1929] transition-all duration-300">
-                            View All Projects
+                        <button className="border-2 border-[#14b8a6] text-[#14b8a6] px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-[#14b8a6] hover:text-white transition-all duration-300">
+                            {t('home.viewAllProjects')}
                         </button>
                     </Link>
                 </div>
