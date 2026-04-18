@@ -24,5 +24,8 @@ dist-ssr
 *.sw?
 
 # Large asset folders
-src/assets/Referanslarým ve Tecrübelerim/
+src/assets/Referanslarï¿½m ve Tecrï¿½belerim/
 
+
+# Local Netlify folder
+.netlify
